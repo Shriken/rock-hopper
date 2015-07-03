@@ -1,5 +1,7 @@
-var Util = new Object();
-var RH = new Object();
+var Util = {
+	fps: 60,
+};
+var RH = {};
 
 //graphics context, Victor center of circle, radius in pixels
 Util.fill_circle = function(ctx, center, radius) {
@@ -35,14 +37,29 @@ RH.init_asteroids = function(list) {
 	//for(var i = 0; i < 4; i++);
 	var temp_ast;
 
-	temp_ast = new Asteroid(RH.center.clone(), new Victor(500, 80), 10, 40);
-	list.push(temp_ast);
+	list.push(new Asteroid(
+		RH.center.clone(),
+		new Victor(500, 80),
+		10, 120
+	));
 
-	temp_ast = new Asteroid(RH.center.clone(), new Victor(500, 200), 20, 160);
-	list.push(temp_ast);
+	list.push(new Asteroid(
+		RH.center.clone(),
+		new Victor(500, 200),
+		20, 480
+	));
 
-	temp_ast = new Asteroid(RH.center.clone(), new Victor(100, 400), 10, 20);
-	list.push(temp_ast);
+	list.push(new Asteroid(
+		RH.center.clone(),
+		new Victor(100, 400),
+		10, 60
+	));
+
+	list.push(new Asteroid(
+		RH.center.clone(),
+		RH.center.clone(),
+		30, 1
+	));
 }
 
 //main loop
@@ -52,7 +69,7 @@ RH.loop = function() {
 	RH.update();
 	RH.draw();
 
-	setTimeout("RH.loop()", 50);
+	setTimeout(RH.loop, 1000 / Util.fps);
 }
 
 RH.update = function() {
