@@ -68,3 +68,5 @@ RH.draw = function() {
 		RH.entities[i].render(ctx);
 	}
 }
+
+document.body.onload = RH.init;
