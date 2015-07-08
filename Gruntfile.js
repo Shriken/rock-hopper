@@ -3,9 +3,24 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		watch: {
+			script: {
+				files: ['src/**/*.js'],
+				tasks: ['browserify'],
+			}
 		},
 
 		browserify: {
+			dist: {
+				files: {
+					'build/module.js': [
+						'src/main.js',
+					]
+				}
+			},
+		},
+
+		concurrent: {
+			main: ['watch', 'shell']
 		},
 
 		shell: {
@@ -18,5 +33,6 @@ module.exports = function(grunt) {
 		},
 	});
 
-	grunt.registerTask('default', ['shell']);
+	grunt.registerTask('watch', 'watch');
+	grunt.registerTask('default', ['browserify', 'concurrent:main']);
 };

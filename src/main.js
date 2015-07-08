@@ -1,19 +1,10 @@
-var Util = {
-	fps: 60,
-};
+var Victor = require('victor');
+
+var utils = require('./utils');
+var config = require('./config');
+var Asteroid = require('./Asteroid');
+
 var RH = {};
-
-//graphics context, Victor center of circle, radius in pixels
-Util.fill_circle = function(ctx, center, radius) {
-	ctx.beginPath();
-	ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
-	ctx.fillStyle = "#631";
-	ctx.fill();
-}
-
-Util.clear = function(ctx) {
-	ctx.clearRect(0, 0, RH.canvas.width, RH.canvas.height);
-}
 
 
 //main namespace
@@ -69,7 +60,7 @@ RH.loop = function() {
 	RH.update();
 	RH.draw();
 
-	setTimeout(RH.loop, 1000 / Util.fps);
+	setTimeout(RH.loop, 1000 / config.fps);
 }
 
 RH.update = function() {
@@ -80,7 +71,7 @@ RH.update = function() {
 
 RH.draw = function() {
 	var ctx = RH.canvas.getContext("2d");
-	Util.clear(ctx);
+	utils.clear(ctx, RH.canvas.width, RH.canvas.height);
 	for(var i = 0; i < RH.entities.length; i++) {
 		RH.entities[i].render(ctx);
 	}
