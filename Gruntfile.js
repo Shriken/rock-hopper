@@ -8,9 +8,11 @@ module.exports = function(grunt) {
 				tasks: ['browserify'],
 			}
 		},
-
 		browserify: {
 			dist: {
+				options: {
+					transform: [['babelify', { stage: 0 }]]
+				},
 				files: {
 					'build/module.js': [
 						'src/main.js',
@@ -33,6 +35,5 @@ module.exports = function(grunt) {
 		},
 	});
 
-	grunt.registerTask('watch', 'watch');
-	grunt.registerTask('default', ['browserify', 'concurrent:main']);
+	grunt.registerTask('default', ['browserify', 'concurrent']);
 };
