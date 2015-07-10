@@ -1,4 +1,4 @@
-var utils = require('./utils');
+var renderUtils = require('./renderUtils');
 
 //Victor center of orbit, Victor starting position, radius in pixels, orbital period in frames
 var Asteroid = function(center, pos, radius, orbit_time) {
@@ -24,7 +24,7 @@ Asteroid.prototype.update = function() {
 
 //Takes canvas context to render on
 Asteroid.prototype.render = function(ctx) {
-	utils.fillCircle(ctx, this.pos, this.radius);
+	renderUtils.fillCircle(ctx, this.pos, this.radius);
 }
 
 module.exports = Asteroid;
