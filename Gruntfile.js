@@ -4,10 +4,11 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		watch: {
 			script: {
-				files: ['src/**/*.js'],
+				files: ['src/**.js'],
 				tasks: ['browserify'],
 			}
 		},
+
 		browserify: {
 			dist: {
 				options: {
@@ -22,7 +23,10 @@ module.exports = function(grunt) {
 		},
 
 		concurrent: {
-			main: ['watch', 'shell']
+			options: {
+				logConcurrentOutput: true,
+			},
+			main: ['watch', 'shell'],
 		},
 
 		shell: {
