@@ -1,7 +1,6 @@
 var Victor = require('victor');
 
 var Asteroid = require('./Asteroid');
-var renderUtils = require('./renderUtils');
 
 var GameState = function() {
 	this.canvas = document.getElementById("canvas");
