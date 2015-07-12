@@ -1,6 +1,8 @@
 var Renderer = function(canvas) {
 	this.canvas = canvas;
 	this.ctx = canvas.getContext('2d');
+
+	this.ctx.translate(canvas.width / 2, canvas.height / 2);
 };
 
 Renderer.prototype.draw = function(gameState) {
@@ -12,7 +14,7 @@ Renderer.prototype.draw = function(gameState) {
 };
 
 Renderer.prototype.clear = function(ctx, width, height) {
-	ctx.clearRect(0, 0, width, height);
+	ctx.clearRect(-width / 2, -height / 2, width, height);
 };
 
 module.exports = Renderer;
