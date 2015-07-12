@@ -9,8 +9,6 @@ var GameState = function() {
 	this.entities = [];
 
 	this.init_asteroids();
-
-	return this;
 };
 
 GameState.prototype.init_asteroids = function() {
