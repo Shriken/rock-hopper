@@ -1,5 +1,4 @@
 var config = require('./config');
-var Asteroid = require('./Asteroid');
 var Renderer = require('./Renderer');
 var GameState = require('./GameState');
 
