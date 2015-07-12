@@ -1,18 +1,25 @@
+var Victor = require('victor');
+
 var renderUtils = require('./renderUtils');
 
-var Asteroid = function(orbitCenter, pos, radius, orbit_time) {
-	this.orbitCenter = orbitCenter;
+var Asteroid = function(orbitParent, pos, radius, orbit_time) {
+	this.orbitParent = orbitParent;
 	this.pos = pos;
 	this.radius = radius;
 	this.orbit_time = orbit_time;
 };
 
 Asteroid.prototype.update = function() {
-	this.pos.subtract(this.orbitCenter);	
+	var orbitCenter;
+	if (this.orbitParent) {
+		orbitCenter = this.orbitParent.pos;
+	} else {
+		orbitCenter = new Victor(0, 0);
+	}
 
+	this.pos.subtract(orbitCenter);	
 	this.pos.rotate((2 * Math.PI) / this.orbit_time);
-
-	this.pos.add(this.orbitCenter);
+	this.pos.add(orbitCenter);
 };
 
 //Takes canvas context to render on

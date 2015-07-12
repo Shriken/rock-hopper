@@ -12,28 +12,30 @@ var GameState = function() {
 };
 
 GameState.prototype.init_asteroids = function() {
-	this.entities.push(new Asteroid(
+	var planet = new Asteroid(
+		planet,
 		this.center.clone(),
-		new Victor(0, -300),
-		10, 120
-	));
+		30, 1
+	);
+
+	this.entities.push(planet);
 
 	this.entities.push(new Asteroid(
-		this.center.clone(),
+		planet,
 		new Victor(0, -200),
 		20, 480
 	));
 
 	this.entities.push(new Asteroid(
-		this.center.clone(),
+		planet,
 		new Victor(0, -100),
 		10, 60
 	));
 
 	this.entities.push(new Asteroid(
-		this.center.clone(),
-		this.center.clone(),
-		30, 1
+		null,
+		new Victor(0, -300),
+		10, 120
 	));
 };
 
