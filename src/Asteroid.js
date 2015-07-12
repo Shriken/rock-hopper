@@ -1,12 +1,27 @@
 var Victor = require('victor');
 
 var renderUtils = require('./renderUtils');
+var consts = require('./consts');
 
-var Asteroid = function(orbitParent, pos, radius, orbit_time) {
+var Asteroid = function(orbitParent, pos, radius) {
 	this.orbitParent = orbitParent;
 	this.pos = pos;
 	this.radius = radius;
-	this.orbit_time = orbit_time;
+	this.mass = 1;
+
+	if (orbitParent) {
+		var orbitRad = this.pos
+			.clone()
+			.subtract(orbitParent.pos)
+			.length();
+		var vel = Math.sqrt(
+			consts.GRAVITY_CONST * orbitParent.mass / orbitRad
+		) / orbitRad;
+		this.orbitTime = 2 * Math.PI / vel;
+	} else {
+		// this Asteroid doesn't orbit, so placeholder!
+		this.orbitTime = 1;
+	}
 };
 
 Asteroid.prototype.update = function() {
@@ -18,7 +33,7 @@ Asteroid.prototype.update = function() {
 	}
 
 	this.pos.subtract(orbitCenter);	
-	this.pos.rotate((2 * Math.PI) / this.orbit_time);
+	this.pos.rotate((2 * Math.PI) / this.orbitTime);
 	this.pos.add(orbitCenter);
 };
 

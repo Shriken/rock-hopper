@@ -15,26 +15,26 @@ GameState.prototype.init_asteroids = function() {
 	var planet = new Asteroid(
 		null,
 		this.center.clone(),
-		30, 1
+		30
 	);
 	this.entities.push(planet);
 
 	this.entities.push(new Asteroid(
 		planet,
 		new Victor(0, -200),
-		20, 480
+		20
 	));
 
 	this.entities.push(new Asteroid(
 		planet,
 		new Victor(0, -100),
-		10, 60
+		10
 	));
 
 	this.entities.push(new Asteroid(
 		planet,
 		new Victor(0, -300),
-		10, 120
+		10
 	));
 };
 
