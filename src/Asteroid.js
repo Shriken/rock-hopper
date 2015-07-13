@@ -39,6 +39,7 @@ Asteroid.prototype.update = function() {
 
 //Takes canvas context to render on
 Asteroid.prototype.render = function(ctx) {
+	ctx.fillStyle = "#631";
 	renderUtils.fillCircle(ctx, this.pos, this.radius);
 };
 
