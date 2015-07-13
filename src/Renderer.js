@@ -8,8 +8,11 @@ var Renderer = function(canvas) {
 Renderer.prototype.draw = function(gameState) {
 	this.clear(this.ctx, this.canvas.width, this.canvas.height);
 
-	for(var i = 0; i < gameState.entities.length; i++) {
-		gameState.entities[i].render(this.ctx);
+	for(var i = 0; i < gameState.asteroids.length; i++) {
+		gameState.asteroids[i].render(this.ctx);
+	}
+	for(var i = 0; i < gameState.players.length; i++) {
+		gameState.players[i].render(this.ctx);
 	}
 };
 
