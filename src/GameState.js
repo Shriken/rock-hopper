@@ -40,7 +40,7 @@ GameState.prototype.init_asteroids = function() {
 	));
 
 	this.asteroids.push(new Asteroid(
-		null,
+		planet,
 		new Victor(0, -300),
 		10
 	));
