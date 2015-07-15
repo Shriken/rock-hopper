@@ -4,32 +4,36 @@ var Player = require('./Player');
 var linkedPlayer = null;
 var canvas = null;
 
-function handleMDown(e) {
-	console.log(e.button);
-	if(e.button == 0) { //LMB
-		var r = canvas.getBoundingClientRect();
-		var mpos = new Victor(e.clientX - r.left, e.clientY - r.top);
-		//console.log(mpos);
-		var origin = new Victor(canvas.width / 2.0, canvas.height / 2.0);
-		origin.add(linkedPlayer.pos);
-		mpos.subtract(origin);
-		mpos.normalize();
-		mpos.multiply(new Victor(2, 2));
-		linkedPlayer.vel.add(mpos);
+var init = function(c, lp) {
+	linkedPlayer = lp;
+	canvas = c;
+	canvas.addEventListener('mousedown', handleMouseDown);
+};
+
+var handleMouseDown = function(event) {
+	if (event.button == 0) { //LMB
+		var rect = canvas.getBoundingClientRect();
+		var origin = new Victor(canvas.width / 2, canvas.height / 2);
+		var playerPos = origin
+			.add(linkedPlayer.pos);
+
+		var mousePos = new Victor(event.clientX, event.clientY)
+			.subtract(new Victor(rect.left, rect.top));
+
+		var deltaVel = mousePos
+			.subtract(playerPos)
+			.normalize()
+			.multiply(new Victor(2, 2));
+
+		linkedPlayer.vel.add(deltaVel);
 	} else {
 		//other buttons
 	}
-}
-	
-function init (c, lp) {
-	linkedPlayer = lp;
-	canvas = c;
-	canvas.addEventListener('mousedown', handleMDown);
-}
+};
 
+var update = function() {};
 
-function update() {
-	console.log("woop woop");
-}
-
-module.exports = {init:init, update:update};
+module.exports = {
+	init: init,
+	update: update,
+};

@@ -12,10 +12,13 @@ var GameState = function() {
 	this.players = [];
 
 	this.init_asteroids();
-	this.players.push(new Player(new Victor(50,50), new Victor(2,1), 15, 0, null));
+	this.players.push(new Player(
+		new Victor(50, 50),
+		new Victor(2, 1),
+		15, 0, null
+	));
 
 	KeyboardController.init(canvas, this.players[0]);
-
 };
 
 GameState.prototype.init_asteroids = function() {
