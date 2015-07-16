@@ -24,4 +24,9 @@ Player.prototype.render = function(ctx) {
 	renderUtils.fillCircle(ctx, this.pos, this.radius);
 };
 
+Player.prototype.applyForce = function(force) {
+	force.divide(new Victor(this.mass, this.mass));
+	this.vel.add(force);
+};
+
 module.exports = Player;

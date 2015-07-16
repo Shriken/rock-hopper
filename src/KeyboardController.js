@@ -20,12 +20,12 @@ var handleMouseDown = function(event) {
 		var mousePos = new Victor(event.clientX, event.clientY)
 			.subtract(new Victor(rect.left, rect.top));
 
-		var deltaVel = mousePos
+		var force = mousePos
 			.subtract(playerPos)
 			.normalize()
 			.multiply(new Victor(2, 2));
 
-		linkedPlayer.vel.add(deltaVel);
+		linkedPlayer.applyForce(force);
 	} else {
 		//other buttons
 	}
