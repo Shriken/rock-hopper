@@ -3,12 +3,11 @@ var renderUtils = require('./renderUtils');
 var Asteroid = require('./Asteroid');
 
 //Victor pos, Victor vel, flt radius, flt mass, Asteroid attachedParent
-var Player = function(pos, vel, radius, mass, attachedParent) {
+var Player = function(pos, vel=(new Victor(0, 0)), mass=1, radius=5) {
 	this.pos = pos;
 	this.vel = vel;
 	this.radius = radius;
 	this.mass = mass;
-    this.attachedParent = attachedParent;
 };
 
 Player.prototype.update = function() {
