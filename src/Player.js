@@ -8,10 +8,26 @@ var Player = function(pos, vel=(new Victor(0, 0)), mass=1, radius=5) {
 	this.vel = vel;
 	this.radius = radius;
 	this.mass = mass;
+
+	this.attachedAsteroid = null;
+	this.asteroidAngle = null;
 };
 
-Player.prototype.update = function() {
-	if(this.attachedParent) {
+Player.prototype.update = function(gameState) {
+	// check if we landed
+	for (var asteroid of gameState.asteroids) {
+		var distSq = this.pos.clone()
+			.subtract(asteroid.pos)
+			.lengthSq();
+		var minDist = this.radius * this.radius +
+			asteroid.radius * asteroid.radius;
+
+		if (distSq < minDist) {
+			this.landOn(asteroid);
+		}
+	}
+
+	if (this.attachedAsteroid) {
 		console.log("attached to asteroid");
 	} else {
 		this.pos.add(this.vel);
@@ -27,6 +43,13 @@ Player.prototype.render = function(ctx) {
 Player.prototype.applyForce = function(force) {
 	force.divide(new Victor(this.mass, this.mass));
 	this.vel.add(force);
+};
+
+Player.prototype.landOn = function(asteroid) {
+	this.attachedAsteroid = asteroid;
+	this.asteroidAngle = asteroid.pos.clone()
+		.subtract(this.pos)
+		.angle();
 };
 
 module.exports = Player;

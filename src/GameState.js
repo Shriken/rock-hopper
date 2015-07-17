@@ -50,7 +50,7 @@ GameState.prototype.update = function() {
 		this.asteroids[i].update();
 	}
 	for(var i = 0; i < this.players.length; i++) {
-		this.players[i].update();
+		this.players[i].update(this);
 	}
 };
 
