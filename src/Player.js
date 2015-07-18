@@ -32,6 +32,8 @@ Player.prototype.update = function(gameState) {
 	}
 
 	if (this.parentAsteroid) {
+		this.upDirection.rotate(this.parentAsteroid.rotSpeed);
+
 		var surfaceDist = Math.sqrt(
 			this.radius * this.radius +
 			this.parentAsteroid.radius * this.parentAsteroid.radius
