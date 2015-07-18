@@ -3,7 +3,7 @@ var renderUtils = require('./renderUtils');
 var Asteroid = require('./Asteroid');
 
 //Victor pos, Victor vel, flt radius, flt mass, Asteroid attachedParent
-var Player = function(pos, vel=(new Victor(0, 0)), mass=1, radius=5) {
+var Player = function(pos, vel=(new Victor(0, 0)), mass=0.2, radius=5) {
 	this.pos = pos;
 	this.vel = vel;
 	this.radius = radius;
@@ -14,6 +14,17 @@ var Player = function(pos, vel=(new Victor(0, 0)), mass=1, radius=5) {
 };
 
 Player.prototype.update = function(gameState) {
+	if (this.parentAsteroid) {
+		this.upDirection.rotate(this.parentAsteroid.rotSpeed);
+
+		var surfaceDist = this.radius + this.parentAsteroid.radius;
+		this.pos = this.upDirection.clone()
+			.multiply(new Victor(surfaceDist, surfaceDist))
+			.add(this.parentAsteroid.pos);
+	} else {
+		this.pos.add(this.vel);
+	}
+
 	// check if we landed
 	for (var asteroid of gameState.asteroids) {
 		if (asteroid === this.parentAsteroid) {
@@ -23,26 +34,11 @@ Player.prototype.update = function(gameState) {
 		var distSq = this.pos.clone()
 			.subtract(asteroid.pos)
 			.lengthSq();
-		var minDist = this.radius * this.radius +
-			asteroid.radius * asteroid.radius;
+		var minDist = this.radius + asteroid.radius;
 
-		if (distSq < minDist) {
+		if (distSq < minDist * minDist) {
 			this.landOn(asteroid);
 		}
-	}
-
-	if (this.parentAsteroid) {
-		this.upDirection.rotate(this.parentAsteroid.rotSpeed);
-
-		var surfaceDist = Math.sqrt(
-			this.radius * this.radius +
-			this.parentAsteroid.radius * this.parentAsteroid.radius
-		);
-		this.pos = this.upDirection.clone()
-			.multiply(new Victor(surfaceDist, surfaceDist))
-			.add(this.parentAsteroid.pos);
-	} else {
-		this.pos.add(this.vel);
 	}
 };
 
@@ -52,9 +48,20 @@ Player.prototype.render = function(ctx) {
 	renderUtils.fillCircle(ctx, this.pos, this.radius);
 };
 
-Player.prototype.applyForce = function(force) {
-	force.divide(new Victor(this.mass, this.mass));
-	this.vel.add(force);
+Player.prototype.jump = function(direction) {
+	if (false && !this.parentAsteroid) {
+		return;
+	}
+
+	if (this.parentAsteroid) {
+		var awayFromAsteroid = this.upDirection.dot(direction) > 0;
+		if (!awayFromAsteroid) {
+			return;
+		}
+	}
+
+	this.parentAsteroid = null;
+	this.applyForce(direction.clone());
 };
 
 Player.prototype.landOn = function(asteroid) {
@@ -62,6 +69,13 @@ Player.prototype.landOn = function(asteroid) {
 	this.upDirection = this.pos.clone()
 		.subtract(asteroid.pos)
 		.normalize();
+	this.vel.x = 0;
+	this.vel.y = 0;
+};
+
+Player.prototype.applyForce = function(force) {
+	force.divide(new Victor(this.mass, this.mass));
+	this.vel.add(force);
 };
 
 module.exports = Player;
