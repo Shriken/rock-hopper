@@ -2,7 +2,7 @@ var Victor = require('victor');
 
 var Asteroid = require('./Asteroid');
 var Player = require('./Player');
-var KeyboardController = require('./KeyboardController');
+var PlayerIOController = require('./PlayerIOController');
 
 var GameState = function() {
 	this.canvas = document.getElementById("canvas");
@@ -14,7 +14,7 @@ var GameState = function() {
 	this.init_asteroids();
 	this.players.push(new Player(new Victor(50, 50)));
 
-	KeyboardController.init(canvas, this.players[0]);
+	PlayerIOController.init(canvas, this.players[0]);
 };
 
 GameState.prototype.init_asteroids = function() {
