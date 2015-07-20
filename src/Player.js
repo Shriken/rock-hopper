@@ -49,15 +49,13 @@ Player.prototype.render = function(ctx) {
 };
 
 Player.prototype.jump = function(direction) {
-	if (false && !this.parentAsteroid) {
+	if (!this.parentAsteroid) {
 		return;
 	}
 
-	if (this.parentAsteroid) {
-		var awayFromAsteroid = this.upDirection.dot(direction) > 0;
-		if (!awayFromAsteroid) {
-			return;
-		}
+	var awayFromAsteroid = this.upDirection.dot(direction) > 0;
+	if (!awayFromAsteroid) {
+		return;
 	}
 
 	this.parentAsteroid = null;
