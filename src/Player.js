@@ -44,7 +44,7 @@ Player.prototype.update = function(gameState) {
 
 //Takes canvas context to render on
 Player.prototype.render = function(ctx) {
-	ctx.fillStyle = "#0F0";
+	ctx.fillStyle = '#0d0';
 	renderUtils.fillCircle(ctx, this.pos, this.radius);
 };
 

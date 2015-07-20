@@ -1,5 +1,10 @@
+body {
+	background: black;
+}
+
 canvas#canvas {
+    background: black;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-width: 1px;
 }
