@@ -1,3 +1,3 @@
 module.exports = {
-	GRAVITY_CONST: 1000,
+	GRAVITY_CONST: 100,
 };

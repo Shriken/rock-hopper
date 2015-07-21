@@ -3,7 +3,7 @@ var Victor = require('victor');
 var renderUtils = require('./renderUtils');
 var consts = require('./consts');
 
-var Asteroid = function(orbitParent, pos, radius, mass=1, rotSpeed=0.03) {
+var Asteroid = function(orbitParent, pos, radius, rotSpeed=0.03, mass=1) {
 	this.orbitParent = orbitParent;
 	this.pos = pos;
 	this.radius = radius;

@@ -21,26 +21,24 @@ GameState.prototype.init_asteroids = function() {
 	var planet = new Asteroid(
 		null,
 		this.center.clone(),
-		30
+		50, 0
 	);
 
 	this.asteroids.push(planet);
 
-	this.asteroids.push(new Asteroid(
-		planet,
-		new Victor(0, -200),
-		20
-	));
+	var NUM_ASTEROIDS = 30;
+	for (var i = 0; i < NUM_ASTEROIDS; i++) {
+		var radius = Math.random() * 10 + 10;
+		var orbitRadius = Math.random() * 250 + 100;
+		var pos = new Victor(0, orbitRadius)
+			.rotate(Math.random() * Math.PI * 2);
+
+		this.asteroids.push(new Asteroid(planet, pos, radius));
+	}
 
 	this.asteroids.push(new Asteroid(
 		planet,
 		new Victor(0, -70),
-		10
-	));
-
-	this.asteroids.push(new Asteroid(
-		planet,
-		new Victor(0, -300),
 		10
 	));
 };
