@@ -14,14 +14,12 @@ var handleMouseDown = function(event) {
 	if (event.button == 0) { //LMB
 		var rect = canvas.getBoundingClientRect();
 		var origin = new Victor(canvas.width / 2, canvas.height / 2);
-		var playerPos = origin
-			.add(linkedPlayer.pos);
 
 		var mousePos = new Victor(event.clientX, event.clientY)
-			.subtract(new Victor(rect.left, rect.top));
+			.subtract(new Victor(rect.left, rect.top))
+			.subtract(origin);
 
 		var direction = mousePos
-			.subtract(playerPos)
 			.normalize();
 
 		linkedPlayer.jump(direction);

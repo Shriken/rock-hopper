@@ -6,14 +6,22 @@ var Renderer = function(canvas) {
 };
 
 Renderer.prototype.draw = function(gameState) {
-	this.clear(this.ctx, this.canvas.width, this.canvas.height);
+	var ctx = this.ctx;
+
+	this.clear(ctx, this.canvas.width, this.canvas.height);
+
+	ctx.save();
+	var playerPos = gameState.primaryPlayer.pos;
+	ctx.translate(-playerPos.x, -playerPos.y);
 
 	for(var i = 0; i < gameState.asteroids.length; i++) {
-		gameState.asteroids[i].render(this.ctx);
+		gameState.asteroids[i].render(ctx);
 	}
 	for(var i = 0; i < gameState.players.length; i++) {
-		gameState.players[i].render(this.ctx);
+		gameState.players[i].render(ctx);
 	}
+
+	ctx.restore();
 };
 
 Renderer.prototype.clear = function(ctx, width, height) {

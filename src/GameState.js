@@ -13,6 +13,7 @@ var GameState = function() {
 
 	this.init_asteroids();
 	this.players.push(new Player(new Victor(50, 50)));
+	this.primaryPlayer = this.players[0];
 
 	PlayerIOController.init(canvas, this.players[0]);
 };
