@@ -3,6 +3,7 @@ var Victor = require('victor');
 var Asteroid = require('./Asteroid');
 var Player = require('./Player');
 var PlayerIOController = require('./PlayerIOController');
+var config = require('./GameStateConfig');
 
 var GameState = function() {
 	this.canvas = document.getElementById("canvas");
@@ -27,10 +28,10 @@ GameState.prototype.init_asteroids = function() {
 
 	this.asteroids.push(planet);
 
-	var NUM_ASTEROIDS = 30;
-	for (var i = 0; i < NUM_ASTEROIDS; i++) {
+	for (var i = 0; i < config.NUM_ASTEROIDS; i++) {
 		var radius = Math.random() * 10 + 10;
-		var orbitRadius = Math.random() * 250 + 100;
+		var orbitRadius = config.ORBIT_RAD_MIN +
+			Math.random() * (config.ORBIT_RAD_MAX + config.ORBIT_RAD_MIN);
 		var pos = new Victor(0, orbitRadius)
 			.rotate(Math.random() * Math.PI * 2);
 
