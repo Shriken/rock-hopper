@@ -3,9 +3,14 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		watch: {
-			script: {
-				files: ['src/**.js'],
+			client: {
+				files: [
+					'client/**.js',
+				],
 				tasks: ['browserify'],
+				options: {
+					interrupt: true,
+				},
 			}
 		},
 
@@ -15,8 +20,8 @@ module.exports = function(grunt) {
 					transform: [['babelify', { stage: 0 }]]
 				},
 				files: {
-					'build/module.js': [
-						'src/main.js',
+					'public/application.js': [
+						'client/main.js',
 					]
 				}
 			},
@@ -26,16 +31,16 @@ module.exports = function(grunt) {
 			options: {
 				logConcurrentOutput: true,
 			},
-			main: ['watch', 'shell'],
+			main: ['watch', 'nodemon'],
 		},
 
-		shell: {
-			options: {
-				stderr: false
+		nodemon: {
+			dev: {
+				script: 'server.js',
+				options: {
+					watch: ['server'],
+				},
 			},
-			target: {
-				command: 'echo "serving on port 8000" && python -m SimpleHTTPServer'
-			}
 		},
 	});
 
