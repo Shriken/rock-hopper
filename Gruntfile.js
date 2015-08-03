@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 					'server.js',
 					'server/**.js',
 				],
-				tasks: ['babel:server'],
+				tasks: ['build:server'],
 				options: {
 					interrupt: true,
 				},
@@ -65,11 +65,20 @@ module.exports = function(grunt) {
 				},
 			},
 		},
+		
+		clean: {
+			server: ['./server_build'],
+		},
 	});
+
+	grunt.registerTask('build:server', [
+		'clean:server',
+		'babel:server',
+	]);
 
 	grunt.registerTask('default', [
 		'browserify:client',
-		'babel:server',
+		'build:server',
 		'concurrent',
 	]);
 };
