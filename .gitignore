@@ -4,3 +4,4 @@ build
 public/**
 !public/index.html
 !public/style.css
+server_build

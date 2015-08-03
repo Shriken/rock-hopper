@@ -7,15 +7,26 @@ module.exports = function(grunt) {
 				files: [
 					'client/**.js',
 				],
-				tasks: ['browserify'],
+				tasks: ['browserify:client'],
 				options: {
 					interrupt: true,
 				},
-			}
+			},
+
+			server: {
+				files: [
+					'server.js',
+					'server/**.js',
+				],
+				tasks: ['babel:server'],
+				options: {
+					interrupt: true,
+				},
+			},
 		},
 
 		browserify: {
-			dist: {
+			client: {
 				options: {
 					transform: [['babelify', { stage: 0 }]]
 				},
@@ -27,22 +38,38 @@ module.exports = function(grunt) {
 			},
 		},
 
+		babel: {
+			server: {
+				files: [{
+					expand: true,
+					cwd: 'server/',
+					src: ['./**.js'],
+					dest: 'server_build/',
+					ext: '.js'
+				}]
+			},
+		},
+
 		concurrent: {
 			options: {
 				logConcurrentOutput: true,
 			},
-			main: ['watch', 'nodemon'],
+			main: ['watch:server', 'watch:client', 'nodemon:server'],
 		},
 
 		nodemon: {
-			dev: {
+			server: {
 				script: 'server.js',
 				options: {
-					watch: ['server.js', 'server'],
+					watch: ['server.js', 'server_build'],
 				},
 			},
 		},
 	});
 
-	grunt.registerTask('default', ['browserify', 'concurrent']);
+	grunt.registerTask('default', [
+		'browserify:client',
+		'babel:server',
+		'concurrent',
+	]);
 };
