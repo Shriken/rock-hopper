@@ -6,6 +6,7 @@ module.exports = function(grunt) {
 			client: {
 				files: [
 					'client/**.js',
+					'client.js',
 				],
 				tasks: ['browserify:client'],
 				options: {
@@ -32,7 +33,7 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'public/application.js': [
-						'client/main.js',
+						'client.js',
 					]
 				}
 			},

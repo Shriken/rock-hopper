@@ -1,7 +1,7 @@
 document.body.onload = function() {
-	var config = require('./config');
-	var Renderer = require('./Renderer');
-	var GameState = require('./GameState');
+	var config = require('./client/config');
+	var Renderer = require('./client/Renderer');
+	var GameState = require('./client/GameState');
 
 	var renderer;
 	var gameState;
