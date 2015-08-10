@@ -10,7 +10,8 @@
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-jshint": "^0.11.2",
     "grunt-nodemon": "^0.4.0",
-    "socket.io": "^1.3.6"
+    "socket.io": "^1.3.6",
+    "socket.io-client": "^1.3.6"
   },
   "devDependencies": {
     "babelify": "^6.1.2",
