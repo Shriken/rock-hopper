@@ -1,4 +1,4 @@
-document.body.onload = function() {
+document.addEventListener('DOMContentLoaded', function() {
 	var socketIO = require('socket.io-client');
 
 	var config = require('./client/config');
@@ -29,4 +29,4 @@ document.body.onload = function() {
 	});
 
 	init();
-};
+});
