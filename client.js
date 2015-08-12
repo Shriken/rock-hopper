@@ -8,8 +8,6 @@ document.body.onload = function() {
 	var renderer;
 	var gameState;
 
-	var socket = socketIO();
-
 	var init = function() {
 		gameState = new GameState();
 		renderer = new Renderer(canvas);
@@ -24,6 +22,11 @@ document.body.onload = function() {
 
 		setTimeout(loop, 1000 / config.fps);
 	};
+
+	var socket = socketIO();
+	socket.on('server-tick', function(socket) {
+		console.log('received server-tick');
+	});
 
 	init();
 };

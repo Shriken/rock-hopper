@@ -15,7 +15,7 @@ app.get('/', function(req, res) {
 	res.sendFile('./public/index.html', { root: __dirname });
 });
 
-io.on('connection', function(socket) {
+io.on('connect', function(socket) {
 	console.log('client connected');
 	socket.on('disconnect', function() {
 		console.log('client disconnected');
@@ -25,4 +25,5 @@ io.on('connection', function(socket) {
 appServer.listen(8000);
 
 Simulator.run(function() {
+	io.emit('server-tick');
 });
