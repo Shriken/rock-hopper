@@ -1,3 +1,5 @@
+'use strict';
+
 var Renderer = function(canvas) {
 	this.canvas = canvas;
 	this.ctx = canvas.getContext('2d');

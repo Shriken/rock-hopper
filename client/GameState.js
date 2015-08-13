@@ -1,3 +1,5 @@
+'use strict';
+
 var Victor = require('victor');
 
 var Asteroid = require('./Asteroid');

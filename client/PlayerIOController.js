@@ -1,3 +1,5 @@
+'use strict';
+
 var Victor = require('victor');
 var Player = require('./Player');
 

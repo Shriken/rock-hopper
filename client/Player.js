@@ -1,3 +1,5 @@
+'use strict';
+
 var Victor = require('victor');
 var renderUtils = require('./renderUtils');
 var Asteroid = require('./Asteroid');

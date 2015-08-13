@@ -1,3 +1,5 @@
+'use strict';
+
 document.addEventListener('DOMContentLoaded', function() {
 	var socketIO = require('socket.io-client');
 
