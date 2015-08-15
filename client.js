@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	var renderer;
 	var gameState;
-	state = gameState;
 
 	var init = function() {
 		renderer = new Renderer(canvas);

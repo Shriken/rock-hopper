@@ -23,10 +23,10 @@ Renderer.prototype.draw = function(gameState) {
 	}
 
 	for(var i = 0; i < gameState.asteroids.length; i++) {
-		//gameState.asteroids[i].render(ctx);
+		gameState.asteroids[i].render(ctx);
 	}
 	for(var i = 0; i < gameState.players.length; i++) {
-		//gameState.players[i].render(ctx);
+		gameState.players[i].render(ctx);
 	}
 
 	ctx.restore();
@@ -34,9 +34,6 @@ Renderer.prototype.draw = function(gameState) {
 
 Renderer.prototype.clear = function(ctx, width, height) {
 	ctx.clearRect(-width / 2, -height / 2, width, height);
-};
-
-Renderer.prototype._renderAsteroid = function(asteroid) {
 };
 
 module.exports = Renderer;

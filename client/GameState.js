@@ -27,7 +27,7 @@ GameState.from = function(gameStateData) {
 	var gameState = new GameState();
 	gameState.players = gameStateData.players.map(Player.from);
 	gameState.asteroids = gameStateData.asteroids.map(Asteroid.from);
-	
+
 	PlayerIOController.rebind(gameState.canvas, gameState.players[0]);
 
 	return gameState;

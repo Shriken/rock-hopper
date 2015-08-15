@@ -38,6 +38,8 @@ Asteroid.from = function(asteroidData) {
 		asteroidData.rotSpeed,
 		asteroidData.mass,
 	);
+
+	return newAsteroid;
 };
 
 Asteroid.prototype.update = function() {
