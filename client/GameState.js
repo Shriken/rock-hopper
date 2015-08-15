@@ -13,12 +13,24 @@ var GameState = function() {
 	this.center = new Victor(0, 0);
 	this.asteroids = [];
 	this.players = [];
+};
 
+GameState.prototype.init = function() {
 	this.init_asteroids();
 	this.players.push(new Player(new Victor(50, 50)));
 	this.primaryPlayer = this.players[0];
 
 	PlayerIOController.init(canvas, this.players[0]);
+};
+
+GameState.from = function(gameStateData) {
+	var gameState = new GameState();
+	gameState.players = gameStateData.players.map(Player.from);
+	gameState.asteroids = gameStateData.asteroids.map(Asteroid.from);
+	
+	PlayerIOController.rebind(gameState.canvas, gameState.players[0]);
+
+	return gameState;
 };
 
 GameState.prototype.init_asteroids = function() {

@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	var renderer;
 	var gameState;
+	state = gameState;
 
 	var init = function() {
-		gameState = new GameState();
 		renderer = new Renderer(canvas);
 
 		loop();
@@ -19,15 +19,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	//main loop
 	var loop = function() {
-		gameState.update();
 		renderer.draw(gameState);
 
 		setTimeout(loop, 1000 / config.fps);
 	};
 
 	var socket = socketIO();
-	socket.on('server-tick', function(socket) {
-		console.log('received server-tick');
+	socket.on('server-tick', function(data) {
+		gameState = GameState.from(data);
 	});
 
 	init();

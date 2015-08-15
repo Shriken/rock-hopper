@@ -23,20 +23,10 @@ var loop = function() {
 		return;
 	}
 
-	updateGameState(gameState);
-	runAfterUpdate();
+	gameState.update();
+	runAfterUpdate(gameState);
 
 	setTimeout(loop, 1000 / FPS);
-};
-
-var updateGameState = function(gameState) {
-	for(var i = 0; i < gameState.asteroids.length; i++) {
-		gameState.asteroids[i].update();
-	}
-
-	for(var i = 0; i < gameState.players.length; i++) {
-		gameState.players[i].update(gameState);
-	}
 };
 
 module.exports = {

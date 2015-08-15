@@ -8,19 +8,25 @@ var Renderer = function(canvas) {
 };
 
 Renderer.prototype.draw = function(gameState) {
+	if (!gameState) {
+		return;
+	}
+
 	var ctx = this.ctx;
 
 	this.clear(ctx, this.canvas.width, this.canvas.height);
 
 	ctx.save();
-	var playerPos = gameState.primaryPlayer.pos;
-	ctx.translate(-playerPos.x, -playerPos.y);
+	if (gameState.players.length > 0) {
+		var playerPos = gameState.players[0].pos;
+		ctx.translate(-playerPos.x, -playerPos.y);
+	}
 
 	for(var i = 0; i < gameState.asteroids.length; i++) {
-		gameState.asteroids[i].render(ctx);
+		//gameState.asteroids[i].render(ctx);
 	}
 	for(var i = 0; i < gameState.players.length; i++) {
-		gameState.players[i].render(ctx);
+		//gameState.players[i].render(ctx);
 	}
 
 	ctx.restore();
@@ -28,6 +34,9 @@ Renderer.prototype.draw = function(gameState) {
 
 Renderer.prototype.clear = function(ctx, width, height) {
 	ctx.clearRect(-width / 2, -height / 2, width, height);
+};
+
+Renderer.prototype._renderAsteroid = function(asteroid) {
 };
 
 module.exports = Renderer;

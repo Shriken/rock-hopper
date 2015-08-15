@@ -13,7 +13,7 @@ var Asteroid = function(orbitParent, pos, radius, rotSpeed=0.03, mass=1) {
 	this.rotSpeed = rotSpeed;
 
 	if (orbitParent) {
-		var orbitRad = this.pos
+		var orbitRad = pos
 			.clone()
 			.subtract(orbitParent.pos)
 			.length();
@@ -25,6 +25,19 @@ var Asteroid = function(orbitParent, pos, radius, rotSpeed=0.03, mass=1) {
 		// this Asteroid doesn't orbit, so placeholder!
 		this.orbitTime = 1;
 	}
+};
+
+Asteroid.from = function(asteroidData) {
+	var pos = asteroidData.pos;
+	pos = new Victor(pos.x, pos.y);
+
+	var newAsteroid = new Asteroid(
+		asteroidData.orbitParent,
+		pos,
+		asteroidData.radius,
+		asteroidData.rotSpeed,
+		asteroidData.mass,
+	);
 };
 
 Asteroid.prototype.update = function() {

@@ -3,16 +3,30 @@
 var Victor = require('victor');
 var Player = require('./Player');
 
-var linkedPlayer = null;
-var canvas = null;
+var state = {
+	linkedPlayer: null,
+	canvas: null,
+};
 
-var init = function(c, lp) {
-	linkedPlayer = lp;
-	canvas = c;
-	canvas.addEventListener('mousedown', handleMouseDown);
+var init = function(canvas, player) {
+	state.linkedPlayer = player;
+	state.canvas = canvas;
+
+	state.canvas.addEventListener('mousedown', handleMouseDown);
+};
+
+var rebind = function(canvas, player) {
+	if (state.canvas) {
+		state.canvas.removeEventListener('mousedown', handleMouseDown);
+	}
+
+	init(canvas, player);
 };
 
 var handleMouseDown = function(event) {
+	var canvas = state.canvas;
+	var linkedPlayer = state.linkedPlayer;
+
 	if (event.button == 0) { //LMB
 		var rect = canvas.getBoundingClientRect();
 		var origin = new Victor(canvas.width / 2, canvas.height / 2);
@@ -34,5 +48,6 @@ var update = function() {};
 
 module.exports = {
 	init: init,
+	rebind: rebind,
 	update: update,
 };
