@@ -29,6 +29,24 @@ var loop = function() {
 	setTimeout(loop, 1000 / FPS);
 };
 
+var addPlayer = function() {
+	if (gameState) {
+		return gameState.addPlayer();
+	}
+
+	return null;
+};
+
+var removePlayer = function(key) {
+	if (gameState) {
+		return gameState.removePlayer(key);
+	}
+
+	return null;
+};
+
 module.exports = {
 	run: run,
+	addPlayer: addPlayer,
+	removePlayer: removePlayer,
 };

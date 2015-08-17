@@ -22,10 +22,10 @@ Renderer.prototype.draw = function(gameState) {
 		ctx.translate(-playerPos.x, -playerPos.y);
 	}
 
-	for(var i = 0; i < gameState.asteroids.length; i++) {
+	for (var i = 0; i < gameState.asteroids.length; i++) {
 		gameState.asteroids[i].render(ctx);
 	}
-	for(var i = 0; i < gameState.players.length; i++) {
+	for (var i = 0; i < gameState.players.length; i++) {
 		gameState.players[i].render(ctx);
 	}
 

@@ -16,9 +16,11 @@ app.get('/', function(req, res) {
 });
 
 io.on('connect', function(socket) {
-	console.log('client connected');
+	var key = Simulator.addPlayer();
+	console.log('client connected:', key);
 	socket.on('disconnect', function() {
-		console.log('client disconnected');
+		Simulator.removePlayer(key);
+		console.log('client disconnected:', key);
 	});
 });
 

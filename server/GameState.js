@@ -10,9 +10,9 @@ var GameState = function() {
 	this.center = new Victor(0, 0);
 	this.asteroids = [];
 	this.players = [];
+	this.nextPlayerId = 0;
 
 	this.initAsteroids();
-	this.players.push(new Player(new Victor(50, 50)));
 };
 
 GameState.prototype.initAsteroids = function() {
@@ -48,6 +48,24 @@ GameState.prototype.update = function() {
 
 	for(var i = 0; i < this.players.length; i++) {
 		this.players[i].update(this);
+	}
+};
+
+GameState.prototype.addPlayer = function() {
+	var newPlayer = new Player(new Victor(50, 50));
+	newPlayer.key = this.nextPlayerId++;
+
+	this.players.push(newPlayer);
+
+	return newPlayer.key;
+};
+
+GameState.prototype.removePlayer = function(key) {
+	for (var i = 0; i < this.players.length; i++) {
+		if (this.players[i].key === key) {
+			this.players.pop(i);
+			return;
+		}
 	}
 };
 
