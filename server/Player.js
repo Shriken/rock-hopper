@@ -27,7 +27,9 @@ Player.prototype.update = function(gameState) {
 	}
 
 	// check if we landed
-	for (var asteroid of gameState.asteroids) {
+	for (var i = 0; i < gameState.asteroids.length; i++) {
+		var asteroid = gameState.asteroids[i];
+
 		if (asteroid === this.parentAsteroid) {
 			continue;
 		}
