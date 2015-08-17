@@ -28,5 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		gameState = GameState.from(data);
 	});
 
+	socket.on('set-key', function(key) {
+		renderer.activePlayer = key;
+	});
+
 	init();
 });

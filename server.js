@@ -17,7 +17,9 @@ app.get('/', function(req, res) {
 
 io.on('connect', function(socket) {
 	var key = Simulator.addPlayer();
+	socket.emit('set-key', key);
 	console.log('client connected:', key);
+
 	socket.on('disconnect', function() {
 		Simulator.removePlayer(key);
 		console.log('client disconnected:', key);

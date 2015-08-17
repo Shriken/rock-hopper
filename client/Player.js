@@ -28,6 +28,7 @@ Player.from = function(playerData) {
 
 	newPlayer.parentAsteroid = playerData.parentAsteroid;
 	newPlayer.upDirection = playerData.upDirection;
+	newPlayer.key = playerData.key;
 
 	return newPlayer;
 };
