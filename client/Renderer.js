@@ -20,9 +20,10 @@ Renderer.prototype.draw = function(gameState) {
 
 	ctx.save();
 	var player = null;
-	for (var i = 0; i < gameState.players.length; i++) {
+	for (let i = 0; i < gameState.players.length; i++) {
 		var thisPlayer = gameState.players[i];
-		if (thisPlayer.key == this.activePlayer) {
+
+		if (thisPlayer.key === this.activePlayer) {
 			player = thisPlayer;
 			break;
 		}
@@ -37,12 +38,8 @@ Renderer.prototype.draw = function(gameState) {
 		ctx.translate(-playerPos.x, -playerPos.y);
 	}
 
-	for (var i = 0; i < gameState.asteroids.length; i++) {
-		gameState.asteroids[i].render(ctx);
-	}
-	for (var i = 0; i < gameState.players.length; i++) {
-		gameState.players[i].render(ctx);
-	}
+	gameState.asteroids.forEach(asteroid => asteroid.render(ctx));
+	gameState.players.forEach(player => player.render(ctx));
 
 	ctx.restore();
 };

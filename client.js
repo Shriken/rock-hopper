@@ -1,3 +1,5 @@
+/* jshint browserify: true */
+
 'use strict';
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -9,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	var renderer;
 	var gameState;
+
+	var canvas = document.getElementById('canvas');
 
 	var init = function() {
 		renderer = new Renderer(canvas);

@@ -1,7 +1,5 @@
 'use strict';
 
-var socket = require('socket.io');
-
 var GameState = require('./GameState');
 
 var FPS = 60;

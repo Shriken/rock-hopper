@@ -50,7 +50,7 @@ Asteroid.prototype.update = function() {
 		orbitCenter = new Victor(0, 0);
 	}
 
-	this.pos.subtract(orbitCenter);	
+	this.pos.subtract(orbitCenter);
 	this.pos.rotate((2 * Math.PI) / this.orbitTime);
 	this.pos.add(orbitCenter);
 };

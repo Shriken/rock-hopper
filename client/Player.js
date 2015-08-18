@@ -2,7 +2,6 @@
 
 var Victor = require('victor');
 var renderUtils = require('./renderUtils');
-var Asteroid = require('./Asteroid');
 
 //Victor pos, Victor vel, flt radius, flt mass, Asteroid attachedParent
 var Player = function(pos, vel=(new Victor(0, 0)), mass=0.2, radius=5) {

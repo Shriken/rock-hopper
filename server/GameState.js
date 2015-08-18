@@ -42,13 +42,8 @@ GameState.prototype.initAsteroids = function() {
 };
 
 GameState.prototype.update = function() {
-	for(var i = 0; i < this.asteroids.length; i++) {
-		this.asteroids[i].update();
-	}
-
-	for(var i = 0; i < this.players.length; i++) {
-		this.players[i].update(this);
-	}
+	this.asteroids.forEach(asteroid => asteroid.update());
+	this.players.forEach(player => player.update(this));
 };
 
 GameState.prototype.addPlayer = function() {
