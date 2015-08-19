@@ -34,9 +34,12 @@ Asteroid.prototype.update = function() {
 		orbitCenter = new Victor(0, 0);
 	}
 
-	this.pos.subtract(orbitCenter);
-	this.pos.rotate((2 * Math.PI) / this.orbitTime);
-	this.pos.add(orbitCenter);
+	var newPos = this.pos.clone()
+		.subtract(orbitCenter)
+		.rotate((2 * Math.PI) / this.orbitTime)
+		.add(orbitCenter);
+
+	this.pos = newPos;
 };
 
 module.exports = Asteroid;
