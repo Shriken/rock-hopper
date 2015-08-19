@@ -12,7 +12,17 @@ GameState.from = function(gameStateData) {
 	gameStateData.players = gameStateData.players.map(Player.from);
 	gameStateData.asteroids = gameStateData.asteroids.map(Asteroid.from);
 
+	gameStateData.getPlayer = GameState.getPlayer;
+
 	return gameStateData;
+};
+
+GameState.getPlayer = function(key) {
+	for (var i = 0; i < this.players.length; i++) {
+		if (this.players[i].key === key) {
+			return this.players[i];
+		}
+	}
 };
 
 module.exports = GameState;

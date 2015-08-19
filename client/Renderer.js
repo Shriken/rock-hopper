@@ -10,30 +10,16 @@ var Renderer = function(canvas) {
 };
 
 Renderer.prototype.draw = function(gameState) {
+	var ctx = this.ctx;
+	this.clear(ctx, this.canvas.width, this.canvas.height);
+	ctx.save();
+
 	if (!gameState || !this.activePlayer) {
 		return;
 	}
 
-	var ctx = this.ctx;
-
-	this.clear(ctx, this.canvas.width, this.canvas.height);
-
-	ctx.save();
-	var player = null;
-	for (let i = 0; i < gameState.players.length; i++) {
-		var thisPlayer = gameState.players[i];
-
-		if (thisPlayer.key === this.activePlayer) {
-			player = thisPlayer;
-			break;
-		}
-	}
-
-	if (!player) {
-		return;
-	}
-
-	if (gameState.players.length > 0) {
+	var player = gameState.getPlayer(this.activePlayer);
+	if (player) {
 		var playerPos = player.pos;
 		ctx.translate(-playerPos.x, -playerPos.y);
 	}
