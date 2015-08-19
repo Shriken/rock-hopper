@@ -4,7 +4,6 @@ var Victor = require('victor');
 
 var Asteroid = require('./Asteroid');
 var Player = require('./Player');
-var config = require('./GameStateConfig');
 
 var GameState = {};
 

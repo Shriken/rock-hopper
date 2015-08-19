@@ -3,7 +3,6 @@
 var Victor = require('victor');
 
 var renderUtils = require('./renderUtils');
-var consts = require('./consts');
 
 var Asteroid = {};
 
