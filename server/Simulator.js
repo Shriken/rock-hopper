@@ -47,6 +47,9 @@ var removePlayer = function(key) {
 
 var playerAction = function(key, action, ...args) {
 	var player = gameState.getPlayer(key);
+	if (!player) {
+		return;
+	}
 
 	if (action === 'jump') {
 		var direction = new Victor(args[0].x, args[0].y);
