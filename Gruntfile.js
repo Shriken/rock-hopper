@@ -54,6 +54,7 @@ module.exports = function(grunt) {
 		concurrent: {
 			options: {
 				logConcurrentOutput: true,
+				limit: 4,
 			},
 			main: ['watch:server', 'watch:client', 'nodemon:server'],
 		},
