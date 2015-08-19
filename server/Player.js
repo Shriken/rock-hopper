@@ -14,6 +14,7 @@ var Player = function(pos, vel=(new Victor(0, 0)), mass=0.2, radius=5) {
 };
 
 Player.prototype.update = function(gameState) {
+	// update position
 	if (this.parentAsteroid) {
 		this.upDirection.rotate(this.parentAsteroid.rotSpeed);
 

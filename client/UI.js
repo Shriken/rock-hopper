@@ -8,17 +8,16 @@ var state = {
 	key: null,
 };
 
-var init = function(socket, key, canvas) {
+function init(socket, key, canvas) {
 	state.socket = socket;
 	state.canvas = canvas;
 	state.key = key;
 
 	state.canvas.addEventListener('mousedown', handleClick);
-};
+}
 
-var handleClick = function(event) {
+function handleClick(event) {
 	var canvas = state.canvas;
-	var linkedPlayer = state.linkedPlayer;
 
 	if (event.button === 0) { //LMB
 		var canvasBounds = canvas.getBoundingClientRect();
@@ -37,7 +36,7 @@ var handleClick = function(event) {
 	} else {
 		//other buttons
 	}
-};
+}
 
 module.exports = {
 	init: init,

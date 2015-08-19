@@ -10,15 +10,15 @@ var gameState;
 var runAfterUpdate;
 var running = false;
 
-var run = function(callback) {
+function run(callback) {
 	runAfterUpdate = callback;
 	running = true;
 	gameState = new GameState();
 
 	loop();
-};
+}
 
-var loop = function() {
+function loop() {
 	if (!running) {
 		return;
 	}
@@ -27,7 +27,7 @@ var loop = function() {
 	runAfterUpdate(gameState);
 
 	setTimeout(loop, 1000 / FPS);
-};
+}
 
 var addPlayer = function() {
 	if (gameState) {
