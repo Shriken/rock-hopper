@@ -55,6 +55,14 @@ GameState.prototype.addPlayer = function() {
 	return newPlayer.key;
 };
 
+GameState.prototype.getPlayer = function(key) {
+	for (var i = 0; i < this.players.length; i++) {
+		if (this.players[i].key === key) {
+			return this.players[i];
+		}
+	}
+};
+
 GameState.prototype.removePlayer = function(key) {
 	for (var i = 0; i < this.players.length; i++) {
 		if (this.players[i].key === key) {

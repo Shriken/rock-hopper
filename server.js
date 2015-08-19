@@ -20,6 +20,10 @@ io.on('connect', function(socket) {
 	socket.emit('set-key', key);
 	console.log('client connected:', key);
 
+	socket.on('jump', function(direction) {
+		Simulator.playerAction(key, 'jump', direction);
+	});
+
 	socket.on('disconnect', function() {
 		Simulator.removePlayer(key);
 		console.log('client disconnected:', key);

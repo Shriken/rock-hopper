@@ -1,5 +1,7 @@
 'use strict';
 
+var Victor = require('victor');
+
 var GameState = require('./GameState');
 
 var FPS = 60;
@@ -43,8 +45,18 @@ var removePlayer = function(key) {
 	return null;
 };
 
+var playerAction = function(key, action, ...args) {
+	var player = gameState.getPlayer(key);
+
+	if (action === 'jump') {
+		var direction = new Victor(args[0].x, args[0].y);
+		player.jump(direction);
+	}
+};
+
 module.exports = {
 	run: run,
 	addPlayer: addPlayer,
 	removePlayer: removePlayer,
+	playerAction: playerAction,
 };

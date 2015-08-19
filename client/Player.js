@@ -26,8 +26,13 @@ Player.from = function(playerData) {
 	);
 
 	newPlayer.parentAsteroid = playerData.parentAsteroid;
-	newPlayer.upDirection = playerData.upDirection;
 	newPlayer.key = playerData.key;
+
+	newPlayer.upDirection = null;
+	var upDir = playerData.upDirection;
+	if (upDir) {
+		newPlayer.upDirection = new Victor(upDir.x, upDir.y);
+	}
 
 	return newPlayer;
 };

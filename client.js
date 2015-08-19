@@ -8,11 +8,23 @@ document.addEventListener('DOMContentLoaded', function() {
 	var config = require('./client/config');
 	var Renderer = require('./client/Renderer');
 	var GameState = require('./client/GameState');
+	var UI = require('./client/UI');
 
 	var renderer;
 	var gameState;
 
 	var canvas = document.getElementById('canvas');
+
+	var socket = socketIO();
+	socket.on('server-tick', function(data) {
+		gameState = GameState.from(data);
+	});
+
+	socket.on('set-key', function(key) {
+		renderer.activePlayer = key;
+
+		UI.init(socket, key, canvas);
+	});
 
 	var init = function() {
 		renderer = new Renderer(canvas);
@@ -26,15 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		setTimeout(loop, 1000 / config.fps);
 	};
-
-	var socket = socketIO();
-	socket.on('server-tick', function(data) {
-		gameState = GameState.from(data);
-	});
-
-	socket.on('set-key', function(key) {
-		renderer.activePlayer = key;
-	});
 
 	init();
 });
