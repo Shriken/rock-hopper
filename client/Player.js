@@ -7,21 +7,21 @@ var renderUtils = require('./renderUtils');
 
 var Player = {};
 
-Player.from = function(playerData) {
-	var pos = playerData.pos;
-	playerData.pos = new Victor(pos.x, pos.y);
+Player.from = function(player) {
+	var pos = player.pos;
+	player.pos = new Victor(pos.x, pos.y);
 
-	var upDir = playerData.upDirection;
+	var upDir = player.upDirection;
 	if (upDir) {
-		playerData.upDirection = new Victor(upDir.x, upDir.y);
+		player.upDirection = new Victor(upDir.x, upDir.y);
 	}
 
-	playerData.render = Player.render;
+	player.render = Player.render;
 
-	var hash = sha1(playerData.key);
-	playerData.color = '#' + hash.slice(0, 6);
+	var hash = sha1(player.key);
+	player.color = '#' + hash.slice(0, 6);
 
-	return playerData;
+	return player;
 };
 
 Player.render = function(ctx) {
