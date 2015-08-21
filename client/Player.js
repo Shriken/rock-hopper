@@ -1,6 +1,7 @@
 'use strict';
 
 var Victor = require('victor');
+var sha1 = require('sha1');
 
 var renderUtils = require('./renderUtils');
 
@@ -17,11 +18,14 @@ Player.from = function(playerData) {
 
 	playerData.render = Player.render;
 
+	var hash = sha1(playerData.key);
+	playerData.color = '#' + hash.slice(0, 6);
+
 	return playerData;
 };
 
 Player.render = function(ctx) {
-	ctx.fillStyle = '#0d0';
+	ctx.fillStyle = this.color;
 	renderUtils.fillCircle(ctx, this.pos, this.radius);
 };
 
