@@ -31,7 +31,7 @@ function handleClick(event) {
 			.normalize();
 
 		if (state.socket) {
-			state.socket.emit('jump', direction);
+			state.socket.emit('jump-or-fire', direction);
 		}
 	} else {
 		//other buttons

@@ -20,8 +20,8 @@ io.on('connect', function(socket) {
 	socket.emit('set-key', key);
 	console.log('client connected:', key);
 
-	socket.on('jump', function(direction) {
-		Simulator.playerAction(key, 'jump', direction);
+	socket.on('jump-or-fire', function(direction) {
+		Simulator.pushEvent('jump-or-fire', key, direction);
 	});
 
 	socket.on('disconnect', function() {

@@ -26,6 +26,7 @@ Renderer.prototype.draw = function(gameState) {
 
 	gameState.asteroids.forEach(asteroid => asteroid.render(ctx));
 	gameState.players.forEach(player => player.render(ctx));
+	gameState.grenades.forEach(grenade => grenade.render(ctx));
 
 	ctx.restore();
 };

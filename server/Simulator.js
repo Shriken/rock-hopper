@@ -3,6 +3,7 @@
 var Victor = require('victor');
 
 var GameState = require('./GameState');
+var EventQueue = require('./EventQueue');
 
 var FPS = 60;
 
@@ -21,6 +22,15 @@ function run(callback) {
 function loop() {
 	if (!running) {
 		return;
+	}
+
+	while (true) {
+		var thisEvent = EventQueue.getNextEvent();
+		if (!thisEvent) {
+			break;
+		}
+
+		triggerEvent(...thisEvent);
 	}
 
 	gameState.update();
@@ -45,15 +55,39 @@ var removePlayer = function(key) {
 	return null;
 };
 
-var playerAction = function(key, action, ...args) {
+var pushEvent = function(...args) {
+	EventQueue.pushEvent(...args);
+};
+
+var triggerEvent = function(type, ...args) {
+	if (type === 'jump-or-fire' || type === 'fire-grenade') {
+		playerAction(type, ...args);
+	} else {
+		console.log('event unrecognized:', type);
+	}
+};
+
+var playerAction = function(action, key, ...args) {
 	var player = gameState.getPlayer(key);
 	if (!player) {
 		return;
 	}
 
-	if (action === 'jump') {
+	if (action === 'jump-or-fire') {
 		var direction = new Victor(args[0].x, args[0].y);
-		player.jump(direction);
+		if (player.inAir()) {
+			player.fire(direction);
+		} else {
+			player.jump(direction);
+		}
+	} else if (action === 'fire-grenade') {
+		var direction = new Victor(args[0].x, args[0].y);
+
+		var pos = player.pos.clone();
+		var vel = player.vel.clone()
+			.add(direction.multiply(new Victor(5, 5)));
+
+		gameState.addGrenade(pos, vel);
 	}
 };
 
@@ -61,5 +95,5 @@ module.exports = {
 	run: run,
 	addPlayer: addPlayer,
 	removePlayer: removePlayer,
-	playerAction: playerAction,
+	pushEvent: pushEvent,
 };

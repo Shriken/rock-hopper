@@ -4,12 +4,14 @@ var Victor = require('victor');
 
 var Asteroid = require('./Asteroid');
 var Player = require('./Player');
+var Grenade = require('./Grenade');
 var config = require('./GameStateConfig');
 
 var GameState = function() {
 	this.center = new Victor(0, 0);
 	this.asteroids = [];
 	this.players = [];
+	this.grenades = [];
 	this.nextPlayerId = 0;
 
 	this.initAsteroids();
@@ -44,6 +46,7 @@ GameState.prototype.initAsteroids = function() {
 GameState.prototype.update = function() {
 	this.asteroids.forEach(asteroid => asteroid.update());
 	this.players.forEach(player => player.update(this));
+	this.grenades.forEach(grenade => grenade.update(this));
 };
 
 GameState.prototype.addPlayer = function() {
@@ -70,6 +73,10 @@ GameState.prototype.removePlayer = function(key) {
 			return;
 		}
 	}
+};
+
+GameState.prototype.addGrenade = function(pos, vel) {
+	this.grenades.push(new Grenade(pos, vel));
 };
 
 module.exports = GameState;
