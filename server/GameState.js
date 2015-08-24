@@ -75,8 +75,42 @@ GameState.prototype.removePlayer = function(key) {
 	}
 };
 
+GameState.prototype.getAsteroid = function(key) {
+	for (var i = 0; i < this.asteroids.length; i++) {
+		if (this.asteroids[i].key === key) {
+			return this.asteroids[i];
+		}
+	}
+};
+
+GameState.prototype.removeAsteroid = function(key) {
+	for (var i = 0; i < this.asteroids.length; i++) {
+		if (this.asteroids[i].key === key) {
+			this.asteroids.pop(i);
+			return;
+		}
+	}
+};
+
 GameState.prototype.addGrenade = function(pos, vel) {
 	this.grenades.push(new Grenade(pos, vel));
+};
+
+GameState.prototype.getGrenade = function(key) {
+	for (var i = 0; i < this.grenades.length; i++) {
+		if (this.grenades[i].key === key) {
+			return this.grenades[i];
+		}
+	}
+};
+
+GameState.prototype.removeGrenade = function(key) {
+	for (var i = 0; i < this.grenades.length; i++) {
+		if (this.grenades[i].key === key) {
+			this.grenades.pop(i);
+			return;
+		}
+	}
 };
 
 module.exports = GameState;

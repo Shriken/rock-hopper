@@ -62,7 +62,7 @@ Player.prototype.jump = function(direction) {
 };
 
 Player.prototype.fire = function(direction) {
-	EventQueue.pushEvent('fire-grenade', this.key, direction);
+	EventQueue.pushEvent('player', 'fire-grenade', this.key, direction);
 };
 
 Player.prototype.inAir = function() {

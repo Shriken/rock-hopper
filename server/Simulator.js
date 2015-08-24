@@ -11,6 +11,8 @@ var gameState;
 var runAfterUpdate;
 var running = false;
 
+var actionFuncs = {};
+
 function run(callback) {
 	runAfterUpdate = callback;
 	running = true;
@@ -60,14 +62,15 @@ var pushEvent = function(...args) {
 };
 
 var triggerEvent = function(type, ...args) {
-	if (type === 'jump-or-fire' || type === 'fire-grenade') {
-		playerAction(type, ...args);
+	var func = actionFuncs[type];
+	if (func) {
+		func(...args);
 	} else {
 		console.log('event unrecognized:', type);
 	}
 };
 
-var playerAction = function(action, key, ...args) {
+actionFuncs['player'] = function(action, key, ...args) {
 	var player = gameState.getPlayer(key);
 	if (!player) {
 		return;
@@ -88,6 +91,28 @@ var playerAction = function(action, key, ...args) {
 			.add(direction.multiply(new Victor(5, 5)));
 
 		gameState.addGrenade(pos, vel);
+	}
+};
+
+actionFuncs['asteroid'] = function(action, key, ...args) {
+	var asteroid = gameState.getAsteroid(key);
+	if (!asteroid) {
+		return;
+	}
+
+	if (action === 'die') {
+		gameState.removeAsteroid(key);
+	}
+};
+
+actionFuncs['grenade'] = function(action, key, ...args) {
+	var grenade = gameState.getGrenade(key);
+	if (!grenade) {
+		return;
+	}
+
+	if (action === 'die') {
+		gameState.removeGrenade(key);
 	}
 };
 

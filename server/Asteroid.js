@@ -2,6 +2,7 @@
 
 var Victor = require('victor');
 
+var EventQueue = require('./EventQueue');
 var GameStateConfig = require('./GameStateConfig');
 
 var Asteroid = function(orbitParent, pos, radius, rotSpeed=0.03, mass=1) {
@@ -40,6 +41,10 @@ Asteroid.prototype.update = function() {
 		.add(orbitCenter);
 
 	this.pos = newPos;
+};
+
+Asteroid.prototype.die = function() {
+	EventQueue.pushEvent('asteroid', 'die', this.key);
 };
 
 module.exports = Asteroid;

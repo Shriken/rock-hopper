@@ -21,7 +21,7 @@ io.on('connect', function(socket) {
 	console.log('client connected:', key);
 
 	socket.on('jump-or-fire', function(direction) {
-		Simulator.pushEvent('jump-or-fire', key, direction);
+		Simulator.pushEvent('player', 'jump-or-fire', key, direction);
 	});
 
 	socket.on('disconnect', function() {
