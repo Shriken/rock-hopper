@@ -33,5 +33,5 @@ io.on('connect', function(socket) {
 appServer.listen(8000);
 
 Simulator.run(function(gameState) {
-	io.emit('server-tick', JSON.parse(JSON.stringify(gameState)));
+	io.emit('server-tick', gameState);
 });
