@@ -69,7 +69,7 @@ GameState.prototype.getPlayer = function(key) {
 GameState.prototype.removePlayer = function(key) {
 	for (var i = 0; i < this.players.length; i++) {
 		if (this.players[i].key === key) {
-			this.players.pop(i);
+			this.players.splice(i, 1);
 			return;
 		}
 	}
@@ -86,7 +86,7 @@ GameState.prototype.getAsteroid = function(key) {
 GameState.prototype.removeAsteroid = function(key) {
 	for (var i = 0; i < this.asteroids.length; i++) {
 		if (this.asteroids[i].key === key) {
-			this.asteroids.pop(i);
+			this.asteroids.splice(i, 1);
 			return;
 		}
 	}
@@ -107,7 +107,7 @@ GameState.prototype.getGrenade = function(key) {
 GameState.prototype.removeGrenade = function(key) {
 	for (var i = 0; i < this.grenades.length; i++) {
 		if (this.grenades[i].key === key) {
-			this.grenades.pop(i);
+			this.grenades.splice(i, 1);
 			return;
 		}
 	}
