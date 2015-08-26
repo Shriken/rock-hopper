@@ -16,14 +16,12 @@ Grenade.from = function(grenade) {
 	var vel = grenade.vel;
 	grenade.vel = new Victor(vel.x, vel.y);
 
-	grenade.render = Grenade.render;
-
 	return grenade;
 };
 
-Grenade.render = function(ctx) {
+Grenade.render = function(ctx, grenade) {
 	ctx.fillStyle = GRENADE_COLOR;
-	renderUtils.fillCircle(ctx, this.pos, GRENADE_RAD);
+	renderUtils.fillCircle(ctx, grenade.pos, GRENADE_RAD);
 };
 
 module.exports = Grenade;

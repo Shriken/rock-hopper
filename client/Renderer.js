@@ -1,5 +1,9 @@
 'use strict';
 
+var Asteroid = require('./Asteroid');
+var Grenade = require('./Grenade');
+var Player = require('./Player');
+
 var Renderer = function(canvas) {
 	this.canvas = canvas;
 	this.ctx = canvas.getContext('2d');
@@ -24,9 +28,9 @@ Renderer.prototype.draw = function(gameState) {
 		ctx.translate(-playerPos.x, -playerPos.y);
 	}
 
-	gameState.asteroids.forEach(asteroid => asteroid.render(ctx));
-	gameState.grenades.forEach(grenade => grenade.render(ctx));
-	gameState.players.forEach(player => player.render(ctx));
+	gameState.asteroids.forEach(astrd => Asteroid.render(ctx, astrd));
+	gameState.grenades.forEach(grenade => Grenade.render(ctx, grenade));
+	gameState.players.forEach(player => Player.render(ctx, player));
 
 	ctx.restore();
 };

@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 					'client/**.js',
 					'client.js',
 				],
-				tasks: ['clear', 'browserify:client'],
+				tasks: ['browserify:client'],
 				options: {
 					interrupt: true,
 				},

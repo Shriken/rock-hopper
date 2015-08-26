@@ -16,17 +16,15 @@ Player.from = function(player) {
 		player.upDirection = new Victor(upDir.x, upDir.y);
 	}
 
-	player.render = Player.render;
-
 	var hash = sha1(player.key);
 	player.color = '#' + hash.slice(0, 6);
 
 	return player;
 };
 
-Player.render = function(ctx) {
-	ctx.fillStyle = this.color;
-	renderUtils.fillCircle(ctx, this.pos, this.radius);
+Player.render = function(ctx, player) {
+	ctx.fillStyle = player.color;
+	renderUtils.fillCircle(ctx, player.pos, player.radius);
 };
 
 module.exports = Player;
