@@ -8,7 +8,7 @@ var pushEvent = function(...args) {
 
 var getNextEvent = function() {
 	return eventQueue.shift();
-}
+};
 
 module.exports = {
 	pushEvent: pushEvent,

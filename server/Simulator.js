@@ -13,15 +13,15 @@ var running = false;
 
 var actionFuncs = {};
 
-function run(callback) {
+var run = function(callback) {
 	runAfterUpdate = callback;
 	running = true;
 	gameState = new GameState();
 
 	loop();
-}
+};
 
-function loop() {
+var loop = function() {
 	if (!running) {
 		return;
 	}
@@ -39,7 +39,7 @@ function loop() {
 	runAfterUpdate(gameState);
 
 	setTimeout(loop, 1000 / FPS);
-}
+};
 
 var addPlayer = function() {
 	if (gameState) {
@@ -70,21 +70,21 @@ var triggerEvent = function(type, ...args) {
 	}
 };
 
-actionFuncs['player'] = function(action, key, ...args) {
+actionFuncs.player = function(action, key, ...args) {
 	var player = gameState.getPlayer(key);
 	if (!player) {
 		return;
 	}
 
 	if (action === 'jump-or-fire') {
-		var direction = new Victor(args[0].x, args[0].y);
+		let direction = new Victor(args[0].x, args[0].y);
 		if (player.inAir()) {
 			player.fire(direction);
 		} else {
 			player.jump(direction);
 		}
 	} else if (action === 'fire-grenade') {
-		var direction = new Victor(args[0].x, args[0].y);
+		let direction = new Victor(args[0].x, args[0].y);
 
 		var pos = player.pos.clone();
 		var vel = player.vel.clone()
@@ -94,7 +94,7 @@ actionFuncs['player'] = function(action, key, ...args) {
 	}
 };
 
-actionFuncs['asteroid'] = function(action, key, ...args) {
+actionFuncs.asteroid = function(action, key) {
 	var asteroid = gameState.getAsteroid(key);
 	if (!asteroid) {
 		return;
@@ -105,7 +105,7 @@ actionFuncs['asteroid'] = function(action, key, ...args) {
 	}
 };
 
-actionFuncs['grenade'] = function(action, key, ...args) {
+actionFuncs.grenade = function(action, key) {
 	var grenade = gameState.getGrenade(key);
 	if (!grenade) {
 		return;
