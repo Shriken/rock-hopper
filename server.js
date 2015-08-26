@@ -4,11 +4,11 @@ var express = require('express');
 var http = require('http');
 var socketIo = require('socket.io');
 
+var Simulator = require('./server_build/Simulator');
+
 var app = express();
 var appServer = http.Server(app);
 var io = socketIo(appServer);
-
-var Simulator = require('./server_build/Simulator');
 
 app.use('/public/', express.static('public'));
 app.get('/', function(req, res) {
