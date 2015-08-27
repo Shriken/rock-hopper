@@ -5,7 +5,7 @@ var Victor = require('victor');
 var EventQueue = require('./EventQueue');
 
 var GRENADE_RAD = 4;
-var EXPLOSION_RAD = 20;
+var EXPLOSION_RAD = 80;
 
 var Grenade = function(pos, vel=new Victor(0, 0)) {
 	this.pos = pos;

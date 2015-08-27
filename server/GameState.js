@@ -12,19 +12,19 @@ var GameState = function() {
 	this.asteroids = [];
 	this.players = [];
 	this.grenades = [];
-	this.nextPlayerId = 0;
+	this.nextPlayerKey = 0;
+	this.nextAsteroidKey = 0;
+	this.nextGrenadeKey = 0;
 
 	this.initAsteroids();
 };
 
 GameState.prototype.initAsteroids = function() {
-	var planet = new Asteroid(
+	var planet = this.addAsteroid(
 		null,
 		this.center.clone(),
 		50, 0
 	);
-
-	this.asteroids.push(planet);
 
 	for (var i = 0; i < config.NUM_ASTEROIDS; i++) {
 		var radius = Math.random() * 10 + 10;
@@ -33,14 +33,14 @@ GameState.prototype.initAsteroids = function() {
 		var pos = new Victor(0, orbitRadius)
 			.rotate(Math.random() * Math.PI * 2);
 
-		this.asteroids.push(new Asteroid(planet, pos, radius));
+		this.addAsteroid(planet, pos, radius);
 	}
 
-	this.asteroids.push(new Asteroid(
+	this.addAsteroid(
 		planet,
 		new Victor(0, -70),
 		10
-	));
+	);
 };
 
 GameState.prototype.update = function() {
@@ -51,7 +51,7 @@ GameState.prototype.update = function() {
 
 GameState.prototype.addPlayer = function() {
 	var newPlayer = new Player(new Victor(50, 50));
-	newPlayer.key = this.nextPlayerId++;
+	newPlayer.key = this.nextPlayerKey++;
 
 	this.players.push(newPlayer);
 
@@ -73,6 +73,14 @@ GameState.prototype.removePlayer = function(key) {
 			return;
 		}
 	}
+};
+
+GameState.prototype.addAsteroid = function(...args) {
+	var asteroid = new Asteroid(...args);
+	asteroid.key = this.nextAsteroidKey++;
+
+	this.asteroids.push(asteroid);
+	return asteroid;
 };
 
 GameState.prototype.getAsteroid = function(key) {
