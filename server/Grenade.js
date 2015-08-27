@@ -33,24 +33,6 @@ Grenade.prototype.update = function(gameState) {
 };
 
 Grenade.prototype.explode = function(gameState) {
-	this.die();
-
-	var asteroids = gameState.agents.asteroids;
-	for (var i = 0; i < asteroids.length; i++) {
-		var asteroid = asteroids[i];
-
-		var distSq = this.pos.clone()
-			.subtract(asteroid.pos)
-			.lengthSq();
-		var minDist = EXPLOSION_RAD + asteroid.radius;
-
-		if (distSq < minDist * minDist) {
-			asteroid.die();
-		}
-	}
-};
-
-Grenade.prototype.die = function() {
 	EventQueue.pushEvent('grenade', 'explode', this.key);
 };
 

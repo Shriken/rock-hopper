@@ -5,16 +5,18 @@ var Victor = require('victor');
 var Asteroid = require('./Asteroid');
 var Player = require('./Player');
 var Grenade = require('./Grenade');
+var Explosion = require('./Explosion');
 var config = require('./GameStateConfig');
 
 var GameState = function() {
 	this.center = new Victor(0, 0);
 
-	this.agents = {};
-	this.agents.asteroids = [];
-	this.agents.players = [];
-	this.agents.grenades = [];
-	this.agents.explosions = [];
+	this.agents = {
+		asteroids: [],
+		players: [],
+		grenades: [],
+		explosions: [],
+	};
 
 	this.nextAgentKey = 0;
 
@@ -49,9 +51,10 @@ GameState.prototype.initAsteroids = function() {
 };
 
 GameState.prototype.update = function() {
-	this.agents.asteroids.forEach(asteroid => asteroid.update());
+	this.agents.asteroids.forEach(asteroid => asteroid.update(this));
 	this.agents.players.forEach(player => player.update(this));
 	this.agents.grenades.forEach(grenade => grenade.update(this));
+	this.agents.explosions.forEach(explosion => explosion.update(this));
 };
 
 GameState.prototype.getAgentList = function(type) {
@@ -68,6 +71,7 @@ GameState.prototype.addAgent = function(type, ...args) {
 		player: Player,
 		asteroid: Asteroid,
 		grenade: Grenade,
+		explosion: Explosion,
 	};
 
 	var Agent = typeMap[type];

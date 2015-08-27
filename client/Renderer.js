@@ -3,6 +3,7 @@
 var Asteroid = require('./Asteroid');
 var Grenade = require('./Grenade');
 var Player = require('./Player');
+var Explosion = require('./Explosion');
 
 var Renderer = function(canvas) {
 	this.canvas = canvas;
@@ -32,6 +33,7 @@ Renderer.prototype.draw = function(gameState) {
 	agents.asteroids.forEach(asteroid => Asteroid.render(ctx, asteroid));
 	agents.grenades.forEach(grenade => Grenade.render(ctx, grenade));
 	agents.players.forEach(player => Player.render(ctx, player));
+	agents.explosions.forEach(expl => Explosion.render(ctx, expl));
 
 	ctx.restore();
 };

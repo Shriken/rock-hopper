@@ -117,6 +117,17 @@ eventFuncs.grenade = function(action, key) {
 	}
 };
 
+eventFuncs.explosion = function(action, key) {
+	var explosion = gameState.getAgent('explosion', key);
+	if (!explosion) {
+		return;
+	}
+
+	if (action === 'die') {
+		gameState.removeAgent('explosion', key);
+	}
+};
+
 module.exports = {
 	run: run,
 	addPlayer: addPlayer,
