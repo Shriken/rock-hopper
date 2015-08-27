@@ -11,7 +11,7 @@ var gameState;
 var runAfterUpdate;
 var running = false;
 
-var actionFuncs = {};
+var eventFuncs = {};
 
 var run = function(callback) {
 	runAfterUpdate = callback;
@@ -62,7 +62,7 @@ var pushEvent = function(...args) {
 };
 
 var triggerEvent = function(type, ...args) {
-	var func = actionFuncs[type];
+	var func = eventFuncs[type];
 	if (func) {
 		func(...args);
 	} else {
@@ -70,7 +70,7 @@ var triggerEvent = function(type, ...args) {
 	}
 };
 
-actionFuncs.player = function(action, key, ...args) {
+eventFuncs.player = function(action, key, ...args) {
 	var player = gameState.getAgent('player', key);
 	if (!player) {
 		return;
@@ -94,7 +94,7 @@ actionFuncs.player = function(action, key, ...args) {
 	}
 };
 
-actionFuncs.asteroid = function(action, key) {
+eventFuncs.asteroid = function(action, key) {
 	var asteroid = gameState.getAgent('asteroid', key);
 	if (!asteroid) {
 		return;
@@ -105,7 +105,7 @@ actionFuncs.asteroid = function(action, key) {
 	}
 };
 
-actionFuncs.grenade = function(action, key) {
+eventFuncs.grenade = function(action, key) {
 	var grenade = gameState.getAgent('grenade', key);
 	if (!grenade) {
 		return;
