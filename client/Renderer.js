@@ -28,9 +28,10 @@ Renderer.prototype.draw = function(gameState) {
 		ctx.translate(-playerPos.x, -playerPos.y);
 	}
 
-	gameState.asteroids.forEach(astrd => Asteroid.render(ctx, astrd));
-	gameState.grenades.forEach(grenade => Grenade.render(ctx, grenade));
-	gameState.players.forEach(player => Player.render(ctx, player));
+	var agents = gameState.agents;
+	agents.asteroids.forEach(asteroid => Asteroid.render(ctx, asteroid));
+	agents.grenades.forEach(grenade => Grenade.render(ctx, grenade));
+	agents.players.forEach(player => Player.render(ctx, player));
 
 	ctx.restore();
 };

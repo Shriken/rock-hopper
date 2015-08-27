@@ -10,9 +10,11 @@ var GameState = {};
 
 GameState.from = function(gameStateData) {
 	gameStateData.center = new Victor(0, 0);
-	gameStateData.players = gameStateData.players.map(Player.from);
-	gameStateData.asteroids = gameStateData.asteroids.map(Asteroid.from);
-	gameStateData.grenades = gameStateData.grenades.map(Grenade.from);
+
+	var agents = gameStateData.agents;
+	agents.players = agents.players.map(Player.from);
+	agents.asteroids = agents.asteroids.map(Asteroid.from);
+	agents.grenades = agents.grenades.map(Grenade.from);
 
 	gameStateData.getPlayer = GameState.getPlayer;
 
@@ -20,9 +22,10 @@ GameState.from = function(gameStateData) {
 };
 
 GameState.getPlayer = function(key) {
-	for (var i = 0; i < this.players.length; i++) {
-		if (this.players[i].key === key) {
-			return this.players[i];
+	var players = this.agents.players;
+	for (var i = 0; i < players.length; i++) {
+		if (players[i].key === key) {
+			return players[i];
 		}
 	}
 };

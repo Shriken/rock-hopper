@@ -16,8 +16,9 @@ var Grenade = function(pos, vel=new Victor(0, 0)) {
 Grenade.prototype.update = function(gameState) {
 	this.pos.add(this.vel);
 
-	for (var i = 0; i < gameState.asteroids.length; i++) {
-		var asteroid = gameState.asteroids[i];
+	var asteroids = gameState.agents.asteroids;
+	for (var i = 0; i < asteroids.length; i++) {
+		var asteroid = asteroids[i];
 
 		var distSq = this.pos.clone()
 			.subtract(asteroid.pos)
@@ -34,8 +35,9 @@ Grenade.prototype.update = function(gameState) {
 Grenade.prototype.explode = function(gameState) {
 	this.die();
 
-	for (var i = 0; i < gameState.asteroids.length; i++) {
-		var asteroid = gameState.asteroids[i];
+	var asteroids = gameState.agents.asteroids;
+	for (var i = 0; i < asteroids.length; i++) {
+		var asteroid = asteroids[i];
 
 		var distSq = this.pos.clone()
 			.subtract(asteroid.pos)
@@ -49,7 +51,7 @@ Grenade.prototype.explode = function(gameState) {
 };
 
 Grenade.prototype.die = function() {
-	EventQueue.pushEvent('grenade', 'die', this.key);
+	EventQueue.pushEvent('grenade', 'explode', this.key);
 };
 
 module.exports = Grenade;

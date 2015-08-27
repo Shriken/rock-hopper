@@ -43,7 +43,7 @@ var loop = function() {
 
 var addPlayer = function() {
 	if (gameState) {
-		return gameState.addPlayer();
+		return gameState.addAgent('player').key;
 	}
 
 	return null;
@@ -51,7 +51,7 @@ var addPlayer = function() {
 
 var removePlayer = function(key) {
 	if (gameState) {
-		return gameState.removePlayer(key);
+		return gameState.removeAgent('player', key);
 	}
 
 	return null;
@@ -71,7 +71,7 @@ var triggerEvent = function(type, ...args) {
 };
 
 actionFuncs.player = function(action, key, ...args) {
-	var player = gameState.getPlayer(key);
+	var player = gameState.getAgent('player', key);
 	if (!player) {
 		return;
 	}
@@ -90,29 +90,30 @@ actionFuncs.player = function(action, key, ...args) {
 		var vel = player.vel.clone()
 			.add(direction.multiply(new Victor(5, 5)));
 
-		gameState.addGrenade(pos, vel);
+		gameState.addAgent('grenade', pos, vel);
 	}
 };
 
 actionFuncs.asteroid = function(action, key) {
-	var asteroid = gameState.getAsteroid(key);
+	var asteroid = gameState.getAgent('asteroid', key);
 	if (!asteroid) {
 		return;
 	}
 
 	if (action === 'die') {
-		gameState.removeAsteroid(key);
+		gameState.removeAgent('asteroid', key);
 	}
 };
 
 actionFuncs.grenade = function(action, key) {
-	var grenade = gameState.getGrenade(key);
+	var grenade = gameState.getAgent('grenade', key);
 	if (!grenade) {
 		return;
 	}
 
-	if (action === 'die') {
-		gameState.removeGrenade(key);
+	if (action === 'explode') {
+		gameState.addAgent('explosion', grenade.pos.clone());
+		gameState.removeAgent('grenade', key);
 	}
 };
 

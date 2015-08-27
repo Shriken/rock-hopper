@@ -5,7 +5,9 @@ var Victor = require('victor');
 var EventQueue = require('./EventQueue');
 
 //Victor pos, Victor vel, flt radius, flt mass, Asteroid attachedParent
-var Player = function(pos, vel=(new Victor(0, 0)), mass=0.2, radius=5) {
+var Player = function(
+	pos=new Victor(50, 50), vel=new Victor(0, 0),
+	mass=0.2, radius=5) {
 	this.pos = pos;
 	this.vel = vel;
 	this.radius = radius;
@@ -29,8 +31,9 @@ Player.prototype.update = function(gameState) {
 	}
 
 	// check if we landed
-	for (var i = 0; i < gameState.asteroids.length; i++) {
-		var asteroid = gameState.asteroids[i];
+	var asteroids = gameState.agents.asteroids;
+	for (var i = 0; i < asteroids.length; i++) {
+		var asteroid = asteroids[i];
 
 		if (asteroid === this.parentAsteroid) {
 			continue;
