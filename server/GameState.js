@@ -25,6 +25,7 @@ GameState.prototype.initAsteroids = function() {
 		this.center.clone(),
 		50, 0
 	);
+	planet.destructible = false;
 
 	for (var i = 0; i < config.NUM_ASTEROIDS; i++) {
 		var radius = Math.random() * 10 + 10;

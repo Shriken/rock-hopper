@@ -11,6 +11,7 @@ var Asteroid = function(orbitParent, pos, radius, rotSpeed=0.03, mass=1) {
 	this.radius = radius;
 	this.mass = mass;
 	this.rotSpeed = rotSpeed;
+	this.destructible = true;
 
 	if (orbitParent) {
 		var orbitRad = this.pos
@@ -44,7 +45,9 @@ Asteroid.prototype.update = function() {
 };
 
 Asteroid.prototype.die = function() {
-	EventQueue.pushEvent('asteroid', 'die', this.key);
+	if (this.destructible) {
+		EventQueue.pushEvent('asteroid', 'die', this.key);
+	}
 };
 
 module.exports = Asteroid;
