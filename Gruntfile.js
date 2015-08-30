@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 		watch: {
 			client: {
 				files: [
-					'client/**.js',
+					'client/**/*.js',
 					'client.js',
 				],
 				tasks: ['browserify:client'],
@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 			server: {
 				files: [
 					'server.js',
-					'server/**.js',
+					'server/**/*.js',
 				],
 				tasks: ['clear', 'build:server'],
 				options: {
@@ -44,7 +44,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: 'server/',
-					src: ['./**.js'],
+					src: ['./**/*.js'],
 					dest: 'server_build/',
 					ext: '.js'
 				}]
@@ -67,7 +67,7 @@ module.exports = function(grunt) {
 				},
 			},
 		},
-		
+
 		clean: {
 			server: ['./server_build'],
 		},

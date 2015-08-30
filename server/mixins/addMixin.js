@@ -5,15 +5,11 @@
  */
 var addMixin = function(mixin, objectClass) {
 	for (var funcName in mixin) {
-		var newFuncInternal = mixin[funcName];
-		var oldFunc = objectClass.prototype[funcName];
-		oldFunc = oldFunc ? oldFunc : null;
+		if (funcName in objectClass.prototype) {
+			console.log('WARNING: clobbering func', funcName);
+		}
 
-		var newFunc = function(...args) {
-			return newFuncInternal(oldFunc, ...args);
-		};
-
-		objectClass.prototype[funcName] = newFunc;
+		objectClass.prototype[funcName] = mixin[funcName];
 	}
 };
 

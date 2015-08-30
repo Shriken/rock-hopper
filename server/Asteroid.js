@@ -4,7 +4,7 @@ var Victor = require('victor');
 
 var EventQueue = require('./EventQueue');
 var GameStateConfig = require('./GameStateConfig');
-var OrbiterMixin = require('./mixins/Orbiter');
+var Orbiter = require('./mixins/Orbiter');
 
 var Asteroid = function(orbitParent, pos, radius, rotSpeed=0.03, mass=1) {
 	this.orbitParent = orbitParent;
@@ -13,9 +13,16 @@ var Asteroid = function(orbitParent, pos, radius, rotSpeed=0.03, mass=1) {
 	this.mass = mass;
 	this.rotSpeed = rotSpeed;
 	this.destructible = true;
+	this.vel = new Victor(0, 0);
+
+	this.setOrbitTime();
+};
+
+Asteroid.prototype.setOrbitTime = function() {
+	var orbitParent = this.orbitParent;
 
 	this.orbitTime = 1; // default val
-	if (orbitParent) {
+	if (this.orbitParent) {
 		var orbitRad = this.pos
 			.clone()
 			.subtract(orbitParent.pos)
@@ -29,12 +36,17 @@ var Asteroid = function(orbitParent, pos, radius, rotSpeed=0.03, mass=1) {
 	}
 };
 
+Asteroid.prototype.update = function() {
+	this.orbit();
+	this.pos.add(this.vel);
+};
+
 Asteroid.prototype.die = function() {
 	if (this.destructible) {
 		EventQueue.pushEvent('asteroid', 'die', this.key);
 	}
 };
 
-OrbiterMixin.add(Asteroid);
+Orbiter.mixInto(Asteroid);
 
 module.exports = Asteroid;

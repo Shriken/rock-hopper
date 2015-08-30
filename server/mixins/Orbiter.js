@@ -5,7 +5,7 @@ var addMixin = require('./addMixin');
 // requires orbitTime to be set in constructor
 var Orbiter = {};
 
-Orbiter.update = function(oldFunc) {
+Orbiter.orbit = function() {
 	if (this.orbitParent) {
 		var orbitCenter = this.orbitParent.pos;
 
@@ -16,11 +16,8 @@ Orbiter.update = function(oldFunc) {
 
 		this.vel = newPos.subtract(this.pos);
 	}
-
-	this.pos += this.vel;
-	oldFunc();
 };
 
 module.exports = {
-	add: objectClass => addMixin(Orbiter, objectClass),
+	mixInto: objectClass => addMixin(Orbiter, objectClass),
 };
