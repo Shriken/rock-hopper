@@ -22,21 +22,19 @@ var run = function(callback) {
 };
 
 var loop = function() {
-	if (!running) {
-		return;
-	}
+	if (running) {
+		while (true) {
+			var thisEvent = EventQueue.getNextEvent();
+			if (!thisEvent) {
+				break;
+			}
 
-	while (true) {
-		var thisEvent = EventQueue.getNextEvent();
-		if (!thisEvent) {
-			break;
+			triggerEvent(...thisEvent);
 		}
 
-		triggerEvent(...thisEvent);
+		gameState.update();
+		runAfterUpdate(gameState);
 	}
-
-	gameState.update();
-	runAfterUpdate(gameState);
 
 	setTimeout(loop, 1000 / FPS);
 };
@@ -130,6 +128,7 @@ eventFuncs.explosion = function(action, key) {
 
 module.exports = {
 	run: run,
+	togglePause: () => { running = !running; },
 	addPlayer: addPlayer,
 	removePlayer: removePlayer,
 	pushEvent: pushEvent,
