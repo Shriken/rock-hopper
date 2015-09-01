@@ -30,8 +30,10 @@ consoleSocket.on('connect', function(socket) {
 	});
 
 	socket.on('command', function(command) {
-		console.log('running console command:', command);
-		Simulator.pushEvent.apply(null, command);
+		if (authed) {
+			console.log('running console command:', command);
+			Simulator.pushEvent.apply(null, command);
+		}
 	});
 });
 

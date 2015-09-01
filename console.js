@@ -14,7 +14,6 @@ var socket = socketIo('http://localhost:9000');
 // socket configuration
 socket.on('connect', function() {
 	console.log('connected!');
-
 	promptForKey();
 });
 
@@ -26,10 +25,6 @@ socket.on('auth-success', function() {
 socket.on('auth-fail', function() {
 	console.log('bad key');
 	promptForKey();
-});
-
-socket.on('error', function(err) {
-	console.log('error connection:', err);
 });
 
 // prompt logic
