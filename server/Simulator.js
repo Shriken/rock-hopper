@@ -13,6 +13,11 @@ var running = false;
 
 var eventFuncs = {};
 
+// events to be run immediately
+var HARD_EVENTS = {
+	pause: true,
+};
+
 var run = function(callback) {
 	runAfterUpdate = callback;
 	running = true;
@@ -55,8 +60,13 @@ var removePlayer = function(key) {
 	return null;
 };
 
-var pushEvent = function(...args) {
-	EventQueue.pushEvent(...args);
+var pushEvent = function(type, ...args) {
+	var type = args[0];
+	if (type in HARD_EVENTS) {
+		triggerEvent(type, ...args);
+	} else {
+		EventQueue.pushEvent(type, ...args);
+	}
 };
 
 var triggerEvent = function(type, ...args) {
@@ -84,8 +94,8 @@ eventFuncs.player = function(action, key, ...args) {
 	} else if (action === 'fire-grenade') {
 		let direction = new Victor(args[0].x, args[0].y);
 
-		var pos = player.pos.clone();
-		var vel = player.vel.clone()
+		let pos = player.pos.clone();
+		let vel = player.vel.clone()
 			.add(direction.multiply(new Victor(5, 5)));
 
 		gameState.addAgent('grenade', pos, vel);
@@ -126,9 +136,10 @@ eventFuncs.explosion = function(action, key) {
 	}
 };
 
+eventFuncs.pause = () => running = !running;
+
 module.exports = {
 	run: run,
-	togglePause: () => { running = !running; },
 	addPlayer: addPlayer,
 	removePlayer: removePlayer,
 	pushEvent: pushEvent,

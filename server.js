@@ -1,8 +1,8 @@
 'use strict';
 
+var socketIo = require('socket.io');
 var express = require('express');
 var http = require('http');
-var socketIo = require('socket.io');
 var sha1 = require('sha1');
 
 var Simulator = require('./server_build/Simulator');
@@ -16,14 +16,22 @@ var CONSOLE_SERVER_PORT = 9000;
 
 consoleSocket.on('connect', function(socket) {
 	var authed = false;
+	console.log('console connection!');
 
 	socket.on('auth', function(key) {
 		if (key === adminKey) {
+			console.log('good console auth');
 			authed = true;
 			socket.emit('auth-success');
 		} else {
+			console.log('bad console auth:', key);
 			socket.emit('auth-fail');
 		}
+	});
+
+	socket.on('command', function(command) {
+		console.log('running console command:', command);
+		Simulator.pushEvent.apply(null, command);
 	});
 });
 
