@@ -51,10 +51,10 @@ GameState.prototype.initAsteroids = function() {
 };
 
 GameState.prototype.update = function() {
-	this.agents.asteroids.forEach(asteroid => asteroid.update(this));
-	this.agents.players.forEach(player => player.update(this));
 	this.agents.grenades.forEach(grenade => grenade.update(this));
 	this.agents.explosions.forEach(explosion => explosion.update(this));
+	this.agents.asteroids.forEach(asteroid => asteroid.update(this));
+	this.agents.players.forEach(player => player.update(this));
 };
 
 GameState.prototype.getAgentList = function(type) {
