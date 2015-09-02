@@ -4,7 +4,7 @@ var Victor = require('victor');
 
 var EventQueue = require('./EventQueue');
 var GameStateConfig = require('./GameStateConfig');
-var Orbiter = require('./mixins/Orbiter');
+var Circler = require('./mixins/Circler');
 
 var Asteroid = function(orbitParent, pos, radius, rotSpeed=0.03, mass=1) {
 	this.orbitParent = orbitParent;
@@ -37,7 +37,7 @@ Asteroid.prototype.setOrbitTime = function() {
 };
 
 Asteroid.prototype.update = function() {
-	this.orbit();
+	this.circle(this.orbitParent, this.orbitTime);
 	this.pos.add(this.vel);
 };
 
@@ -47,6 +47,6 @@ Asteroid.prototype.die = function() {
 	}
 };
 
-Orbiter.mixInto(Asteroid);
+Circler.mixInto(Asteroid);
 
 module.exports = Asteroid;
