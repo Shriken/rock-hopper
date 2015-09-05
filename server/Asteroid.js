@@ -6,12 +6,12 @@ var EventQueue = require('./EventQueue');
 var GameStateConfig = require('./GameStateConfig');
 var Circler = require('./mixins/Circler');
 
-var Asteroid = function(orbitParent, pos, radius, rotSpeed=0.03, mass=1) {
+var Asteroid = function(orbitParent, pos, radius, revTime=100, mass=1) {
 	this.orbitParent = orbitParent;
 	this.pos = pos;
 	this.radius = radius;
 	this.mass = mass;
-	this.rotSpeed = rotSpeed;
+	this.revTime = revTime;
 	this.destructible = true;
 	this.vel = new Victor(0, 0);
 
@@ -33,11 +33,20 @@ Asteroid.prototype.setOrbitTime = function() {
 		) / orbitRad;
 
 		this.orbitTime = 2 * Math.PI / rotVel;
+		this.orbitAngle = this.pos
+			.clone()
+			.subtract(this.orbitParent.pos)
+			.angle();
+		console.log(this.orbitAngle);
 	}
 };
 
 Asteroid.prototype.update = function() {
-	this.circle(this.orbitParent, this.orbitTime);
+	if (this.orbitParent) {
+		var distToParent = this.pos
+			.distance(this.orbitParent.pos);
+		this.circle(this.orbitParent, this.orbitTime, distToParent);
+	}
 	this.pos.add(this.vel);
 };
 
