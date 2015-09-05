@@ -34,8 +34,10 @@ GameState.prototype.initAsteroids = function() {
 
 	for (var i = 0; i < config.NUM_ASTEROIDS; i++) {
 		var radius = Math.random() * 10 + 10;
-		var orbitRadius = config.ORBIT_RAD_MIN +
-			Math.random() * (config.ORBIT_RAD_MAX - config.ORBIT_RAD_MIN);
+
+		var MIN = config.ORBIT_RAD_MIN;
+		var MAX = config.ORBIT_RAD_MAX;
+		var orbitRadius = MIN + Math.sqrt(Math.random()) * (MAX - MIN);
 		var pos = new Victor(0, orbitRadius)
 			.rotate(Math.random() * 2 * Math.PI);
 

@@ -37,7 +37,6 @@ Asteroid.prototype.setOrbitTime = function() {
 			.clone()
 			.subtract(this.orbitParent.pos)
 			.angle();
-		console.log(this.orbitAngle);
 	}
 };
 
