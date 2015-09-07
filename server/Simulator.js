@@ -42,19 +42,8 @@ var loop = function() {
 };
 
 var addPlayer = function() {
-	if (gameState) {
-		return gameState.addAgent('player').key;
-	}
-
-	return null;
-};
-
-var removePlayer = function(key) {
-	if (gameState) {
-		return gameState.removeAgent('player', key);
-	}
-
-	return null;
+	pushEvent('player', 'add');
+	return gameState.getNextQueuedKey();
 };
 
 var pushEvent = function(...args) {
@@ -71,12 +60,18 @@ var triggerEvent = function(type, ...args) {
 };
 
 eventFuncs.player = function(action, key, ...args) {
+	if (action === 'add') {
+		gameState.addAgent('player');
+	}
+
 	var player = gameState.getAgent('player', key);
 	if (!player) {
 		return;
 	}
 
-	if (action === 'jump-or-fire') {
+	if (action === 'remove') {
+		gameState.removeAgent('player', key);
+	} else if (action === 'jump-or-fire') {
 		let direction = new Victor(args[0].x, args[0].y);
 		if (player.inAir()) {
 			player.fire(direction);
@@ -91,6 +86,8 @@ eventFuncs.player = function(action, key, ...args) {
 			.add(direction.multiply(new Victor(5, 5)));
 
 		gameState.addAgent('grenade', pos, vel);
+	} else {
+		console.log('bad action type: player', action);
 	}
 };
 
@@ -102,6 +99,8 @@ eventFuncs.asteroid = function(action, key) {
 
 	if (action === 'die') {
 		gameState.removeAgent('asteroid', key);
+	} else {
+		console.log('bad action type: asteroid', action);
 	}
 };
 
@@ -114,6 +113,8 @@ eventFuncs.grenade = function(action, key) {
 	if (action === 'explode') {
 		gameState.addAgent('explosion', grenade.pos.clone());
 		gameState.removeAgent('grenade', key);
+	} else {
+		console.log('bad action type: grenade', action);
 	}
 };
 
@@ -125,12 +126,13 @@ eventFuncs.explosion = function(action, key) {
 
 	if (action === 'die') {
 		gameState.removeAgent('explosion', key);
+	} else {
+		console.log('bad action type: explosion', action);
 	}
 };
 
 module.exports = {
 	run: run,
 	addPlayer: addPlayer,
-	removePlayer: removePlayer,
 	pushEvent: pushEvent,
 };

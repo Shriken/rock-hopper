@@ -19,6 +19,7 @@ var GameState = function() {
 	};
 
 	this.nextAgentKey = 0;
+	this.nextQueuedAgentKey = 0;
 
 	this.initAsteroids();
 };
@@ -59,6 +60,18 @@ GameState.prototype.update = function() {
 	this.agents.players.forEach(player => player.update(this));
 };
 
+GameState.prototype.getNextQueuedKey = function() {
+	if (this.nextQueuedAgentKey < this.nextAgentKey) {
+		this.nextQueuedAgentKey = this.nextAgentKey;
+	}
+
+	return this.nextQueuedAgentKey++;
+};
+
+GameState.prototype.getNextKey = function() {
+	return this.nextAgentKey++;
+};
+
 GameState.prototype.getAgentList = function(type) {
 	type += 's';
 
@@ -84,7 +97,7 @@ GameState.prototype.addAgent = function(type, ...args) {
 	}
 
 	var newAgent = new Agent(...args);
-	newAgent.key = this.nextAgentKey++;
+	newAgent.key = this.getNextKey();
 	agentList.push(newAgent);
 
 	return newAgent;

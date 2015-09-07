@@ -25,7 +25,7 @@ io.on('connect', function(socket) {
 	});
 
 	socket.on('disconnect', function() {
-		Simulator.removePlayer(key);
+		Simulator.pushEvent('player', 'remove', key);
 		console.log('client disconnected:', key);
 	});
 });
