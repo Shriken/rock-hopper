@@ -29,7 +29,7 @@ GameState.prototype.initAsteroids = function() {
 		'asteroid',
 		null,
 		this.center.clone(),
-		50, 0
+		50
 	);
 	planet.destructible = false;
 

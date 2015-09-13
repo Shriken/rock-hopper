@@ -3,7 +3,6 @@
 var Victor = require('victor');
 
 var EventQueue = require('./EventQueue');
-var Circler = require('./mixins/Circler');
 
 var SHOOT_DELAY = 60;
 
@@ -20,6 +19,7 @@ var Player = function(
 	this.mass = mass;
 
 	this.parentAsteroid = null;
+	this.upVector = null;
 	this.timeToShootAllowed = 0;
 };
 
@@ -30,13 +30,12 @@ Player.prototype.update = function(gameState) {
 
 	// update position
 	if (!this.inAir()) {
-		var parentAsteroid = this.parentAsteroid;
-		var revTime = parentAsteroid.revTime;
-		this.circle(
-			parentAsteroid,
-			revTime,
-			this.radius + this.parentAsteroid.radius
-		);
+		var rad = this.radius + this.parentAsteroid.radius;
+		var newPos = this.upVector.clone()
+			.multiply(new Victor(rad, rad))
+			.add(this.parentAsteroid.pos);
+
+		this.vel = newPos.subtract(this.pos);
 	}
 	this.pos.add(this.vel);
 
@@ -95,17 +94,14 @@ Player.prototype.inAir = function() {
 Player.prototype.landOn = function(asteroid) {
 	this.parentAsteroid = asteroid;
 	this.vel = new Victor(0, 0);
-	this.orbitAngle = this.pos
-		.clone()
+	this.upVector = this.pos.clone()
 		.subtract(this.parentAsteroid.pos)
-		.angle();
+		.normalize();
 };
 
 Player.prototype.applyForce = function(force) {
 	force.divide(new Victor(this.mass, this.mass));
 	this.vel.add(force);
 };
-
-Circler.mixInto(Player);
 
 module.exports = Player;

@@ -6,12 +6,11 @@ var EventQueue = require('./EventQueue');
 var GameStateConfig = require('./GameStateConfig');
 var Circler = require('./mixins/Circler');
 
-var Asteroid = function(orbitParent, pos, radius, revTime=100, mass=1) {
+var Asteroid = function(orbitParent, pos, radius, mass=1) {
 	this.orbitParent = orbitParent;
 	this.pos = pos;
 	this.radius = radius;
 	this.mass = mass;
-	this.revTime = revTime;
 	this.destructible = true;
 	this.vel = new Victor(0, 0);
 
