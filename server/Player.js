@@ -10,7 +10,7 @@ var SHOOT_DELAY = 60;
 var Player = function(
 	pos=new Victor(50, 50),
 	vel=new Victor(0, 0),
-	mass=0.2,
+	mass=0.13,
 	radius=5
 ) {
 	this.pos = pos;
@@ -72,7 +72,7 @@ Player.prototype.jump = function(direction) {
 	}
 
 	this.parentAsteroid = null;
-	this.applyForce(direction.clone());
+	this.applyForce(direction);
 };
 
 Player.prototype.fire = function(direction) {
