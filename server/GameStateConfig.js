@@ -2,8 +2,8 @@
 
 module.exports = {
 	// level information
-	NUM_ASTEROIDS: 200,
-	ORBIT_RAD_MAX: 750,
+	NUM_ASTEROIDS: 100,
+	ORBIT_RAD_MAX: 500,
 	ORBIT_RAD_MIN: 100,
 
 	// global constants
