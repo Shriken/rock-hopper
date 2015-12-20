@@ -13,6 +13,7 @@ var Grenade = function(pos, vel=new Victor(0, 0)) {
 	this.vel = vel;
 	this.radius = GRENADE_RAD;
 	this.age = 0;
+	this.dead = false;
 };
 
 Grenade.prototype.update = function(gameState) {

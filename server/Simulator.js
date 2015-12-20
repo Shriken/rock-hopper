@@ -98,7 +98,7 @@ eventFuncs.player = function(action, key, ...args) {
 		var vel = player.vel.clone()
 			.add(direction.multiply(new Victor(5, 5)));
 
-		gameState.addAgent('grenade', pos, vel);
+		player.grenade = gameState.addAgent('grenade', pos, vel);
 	} else {
 		console.log('bad action type: player', action);
 	}
@@ -124,6 +124,7 @@ eventFuncs.grenade = function(action, key) {
 	}
 
 	if (action === 'explode') {
+		grenade.dead = true;
 		gameState.addAgent('explosion', grenade.pos.clone());
 		gameState.removeAgent('grenade', key);
 	} else {

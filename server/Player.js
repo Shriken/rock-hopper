@@ -19,13 +19,13 @@ var Player = function(
 	this.radius = radius;
 	this.mass = mass;
 
+	this.grenade = null;
 	this.parentAsteroid = null;
-	this.timeToShootAllowed = 0;
 };
 
 Player.prototype.update = function(gameState) {
-	if (this.timeToShootAllowed > 0) {
-		this.timeToShootAllowed--;
+	if (this.grenade && this.grenade.dead) {
+		this.grenade = null;
 	}
 
 	// update position
@@ -77,14 +77,13 @@ Player.prototype.jump = function(direction) {
 };
 
 Player.prototype.fire = function(direction) {
-	if (this.timeToShootAllowed === 0) {
+	if (!this.grenade) {
 		EventQueue.pushEvent(
 			'player',
 			'fire-grenade',
 			this.key,
 			direction
 		);
-		this.timeToShootAllowed = SHOOT_DELAY;
 	}
 };
 
