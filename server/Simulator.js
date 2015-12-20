@@ -61,7 +61,20 @@ var triggerEvent = function(type, ...args) {
 
 eventFuncs.player = function(action, key, ...args) {
 	if (action === 'add') {
-		gameState.addAgent('player');
+		var player = gameState.addAgent('player', new Victor(50, 50));
+
+		if (gameState.agents.asteroids) {
+			// put the player on a random asteroid
+			var index = Math.floor(
+				Math.random() * gameState.agents.asteroids.length
+			);
+			player.landOn(gameState.agents.asteroids[index]);
+			player.pos = player.parentAsteroid.pos
+				.clone()
+				.add(new Victor(player.parentAsteroid.rad, 0));
+		}
+
+		return;
 	}
 
 	var player = gameState.getAgent('player', key);
