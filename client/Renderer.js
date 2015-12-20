@@ -30,9 +30,9 @@ Renderer.prototype.draw = function(gameState) {
 	}
 
 	var agents = gameState.agents;
-	agents.asteroids.forEach(asteroid => Asteroid.render(ctx, asteroid));
 	agents.grenades.forEach(grenade => Grenade.render(ctx, grenade));
 	agents.players.forEach(player => Player.render(ctx, player));
+	agents.asteroids.forEach(asteroid => Asteroid.render(ctx, asteroid));
 	agents.explosions.forEach(expl => Explosion.render(ctx, expl));
 
 	ctx.restore();
